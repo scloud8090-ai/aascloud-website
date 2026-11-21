@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Learn about AASCloud — our story, leadership team, mission, and cloud, AI & FinTech engineering values.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>About Us — AASCloud</title>
+
+    <!-- Fonts, Bootstrap 5 & FontAwesome 6 (Zero missing external assets) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        :root {
+            --red-bg: #070609;
+            --red-surface: #110e15;
+            --red-surface-hover: #1a121d;
+            --red-primary: #ff2a2a;
+            --red-deep: #990f15;
+            --red-coral: #ff6b6b;
+            --red-glow: rgba(255, 42, 42, 0.35);
+            --red-border: rgba(255, 42, 42, 0.25);
+            --text-main: #f8fafc;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--red-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           RED CYBER GRID & DIAGONAL LINE BACKGROUND
+        ========================================= */
+        .red-cyber-wrapper {
+            position: relative;
+            background-color: var(--red-bg);
+            background-image: 
+                radial-gradient(circle at 12% 15%, rgba(255, 42, 42, 0.18) 0%, transparent 42%),
+                radial-gradient(circle at 88% 55%, rgba(153, 15, 21, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 45% 85%, rgba(255, 42, 42, 0.12) 0%, transparent 45%),
+                linear-gradient(to right, rgba(255, 42, 42, 0.065) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 42, 42, 0.065) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+        }
+
+        .red-cyber-wrapper::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 170px,
+                rgba(255, 42, 42, 0.07) 171px,
+                rgba(255, 42, 42, 0.07) 172px
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .red-scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red-primary), var(--red-coral), var(--red-primary), transparent);
+            box-shadow: 0 0 18px var(--red-primary);
+            opacity: 0.6;
+            animation: redScan 9s linear infinite;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes redScan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        .red-divider {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--red-primary), var(--red-coral), var(--red-primary), transparent);
+            box-shadow: 0 0 16px var(--red-glow);
+        }
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+        .aas-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 6, 9, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--red-border);
+            padding: 14px 0;
+        }
+
+        .aas-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .aas-logo-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--red-primary), var(--red-deep));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 0 18px var(--red-glow);
+        }
+
+        .aas-logo span strong {
+            color: var(--red-primary);
+        }
+
+        .aas-menu {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .aas-menu a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 14.5px;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        .aas-menu a:hover, .aas-menu a.active {
+            color: var(--red-primary);
+        }
+
+        .btn-red-glow {
+            background: linear-gradient(135deg, var(--red-primary), var(--red-deep));
+            color: #fff !important;
+            padding: 11px 24px;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 107, 107, 0.45);
+            box-shadow: 0 4px 20px rgba(255, 42, 42, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .btn-red-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255, 42, 42, 0.65);
+        }
+
+        .btn-red-outline {
+            background: rgba(17, 14, 21, 0.85);
+            color: #fff !important;
+            padding: 11px 24px;
+            border-radius: 9px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            border: 1px solid var(--red-border);
+            transition: 0.3s ease;
+        }
+
+        .btn-red-outline:hover {
+            border-color: var(--red-primary);
+            background: rgba(255, 42, 42, 0.16);
+        }
+
+        /* =========================================
+           HERO SECTION (NO EXTERNAL MISSING IMAGES)
+        ========================================= */
+        .about-hero {
+            position: relative;
+            z-index: 2;
+            padding: 95px 0 80px;
+            background: radial-gradient(circle at 50% 25%, rgba(255, 42, 42, 0.22) 0%, rgba(153, 15, 21, 0.12) 45%, transparent 75%);
+            border-bottom: 1px solid var(--red-border);
+            text-align: center;
+        }
+
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            background: rgba(255, 42, 42, 0.14);
+            border: 1px solid rgba(255, 42, 42, 0.45);
+            color: var(--red-coral);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(32px, 4.8vw, 52px);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 18px;
+            line-height: 1.16;
+        }
+
+        .about-hero h1 span {
+            background: linear-gradient(90deg, #ff2a2a, #ff7b7b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .breadcrumb-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            list-style: none;
+            padding: 8px 18px;
+            margin: 10px 0 0;
+            background: rgba(17, 14, 21, 0.85);
+            border: 1px solid var(--red-border);
+            border-radius: 50px;
+            font-size: 13px;
+        }
+
+        .breadcrumb-custom a {
+            color: var(--red-coral);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           SECTIONS & CARDS
+        ========================================= */
+        .section-pad {
+            position: relative;
+            z-index: 2;
+            padding: 85px 0;
+        }
+
+        .sec-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 50px;
+        }
+
+        .sec-header h2 {
+            font-size: clamp(28px, 3.8vw, 40px);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .sec-header h2 span {
+            color: var(--red-primary);
+        }
+
+        .sec-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .red-card {
+            background: var(--red-surface);
+            border: 1px solid rgba(255, 42, 42, 0.18);
+            border-top: 3px solid var(--red-primary);
+            border-radius: 14px;
+            padding: 32px 26px;
+            height: 100%;
+            transition: all 0.35s ease;
+        }
+
+        .red-card:hover {
+            background: var(--red-surface-hover);
+            transform: translateY(-7px);
+            border-color: var(--red-primary);
+            box-shadow: 0 15px 35px rgba(255, 42, 42, 0.24);
+        }
+
+        .red-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: rgba(255, 42, 42, 0.14);
+            border: 1px solid rgba(255, 42, 42, 0.42);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--red-primary);
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        /* Architectural Story Visual Card */
+        .story-visual-panel {
+            background: linear-gradient(155deg, rgba(26, 14, 22, 0.96), rgba(10, 8, 14, 0.98));
+            border: 1px solid rgba(255, 42, 42, 0.4);
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 32px rgba(255, 42, 42, 0.22);
+        }
+
+        .milestone-row {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 42, 42, 0.22);
+            border-left: 3px solid var(--red-primary);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+        }
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+            margin: 26px 0 32px;
+        }
+
+        .check-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 42, 42, 0.08);
+            border: 1px solid rgba(255, 42, 42, 0.25);
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #f3f4f6;
+        }
+
+        .check-pill i {
+            color: var(--red-primary);
+        }
+
+        /* Leadership Team Cards */
+        .team-card {
+            background: var(--red-surface);
+            border: 1px solid var(--red-border);
+            border-radius: 16px;
+            padding: 30px 22px;
+            text-align: center;
+            height: 100%;
+            transition: 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-7px);
+            border-color: var(--red-primary);
+            box-shadow: 0 14px 32px rgba(255, 42, 42, 0.24);
+        }
+
+        .team-avatar {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red-primary), var(--red-deep));
+            border: 2px solid rgba(255, 107, 107, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 22px var(--red-glow);
+        }
+
+        .team-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(255, 42, 42, 0.12);
+            border: 1px solid rgba(255, 42, 42, 0.3);
+            color: var(--red-coral);
+            margin: 0 4px;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+
+        .team-social a:hover {
+            background: var(--red-primary);
+            color: #fff;
+        }
+
+        /* Counters */
+        .counter-box {
+            background: var(--red-surface);
+            border: 1px solid var(--red-border);
+            border-radius: 14px;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .counter-box i {
+            font-size: 28px;
+            color: var(--red-primary);
+            margin-bottom: 12px;
+        }
+
+        .counter-box h3 {
+            font-size: 34px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+        }
+
+        .counter-box p {
+            color: var(--text-muted);
+            margin: 6px 0 0;
+            font-size: 14px;
+        }
+
+        /* Newsletter & Footer */
+        .nl-input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nl-input-group input {
+            flex: 1;
+            min-width: 220px;
+            background: rgba(7, 6, 9, 0.9);
+            border: 1px solid var(--red-border);
+            border-radius: 9px;
+            padding: 12px 16px;
+            color: #fff;
+            outline: none;
+        }
+
+        .nl-input-group input:focus {
+            border-color: var(--red-primary);
+        }
+
+        .aas-footer {
+            position: relative;
+            z-index: 2;
+            background: #040306;
+            border-top: 1px solid var(--red-border);
+            padding: 65px 0 30px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .aas-footer h5 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        .aas-footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .aas-footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .aas-footer ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .aas-footer ul li a:hover {
+            color: var(--red-primary);
+        }
+
+        @media (max-width: 991px) {
+            .aas-menu {
+                display: none;
+            }
+            .aas-menu.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 68px;
+                left: 0;
+                width: 100%;
+                background: #0d0911;
+                padding: 20px;
+                border-bottom: 2px solid var(--red-primary);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Red Scanline -->
+    <div class="red-scanline"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="aas-navbar">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a href="index.html" class="aas-logo">
+                <div class="aas-logo-badge">A</div>
+                <span>AAS<strong>Cloud</strong></span>
+            </a>
+
+            <ul class="aas-menu" id="mainNav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="marketplace.html">Marketplace</a></li>
+                <li><a href="banking.html">Banking</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="contact.html" class="btn-red-glow">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+                <button class="btn text-white d-lg-none" id="navToggle" aria-label="Menu">
+                    <i class="fa-solid fa-bars fa-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Crimson Red Cyber Grid Wrapper -->
+    <div class="red-cyber-wrapper">
+
+        <!-- ===== HERO SECTION ===== -->
+        <section class="about-hero">
+            <div class="container">
+                <div class="pill-badge"><i class="fa-solid fa-shield-halved"></i> Our Story &amp; Engineering DNA</div>
+                <h1>Building Trust Across <span>Cloud, AI &amp; Finance</span></h1>
+                <p class="text-secondary mx-auto mb-4" style="max-width:720px; font-size:16.5px; line-height:1.7;">
+                    AASCloud combines hyperscale AWS, Azure, and Google Cloud engineering with bank-grade security, enterprise AI models, and intelligent financial advisory to help businesses grow globally.
+                </p>
+                <ul class="breadcrumb-custom">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="text-secondary">/</li>
+                    <li class="text-white fw-semibold">About Us</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT SPLIT SECTION ===== -->
+        <section class="section-pad">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <!-- Left Visual Architecture & Milestones Panel -->
+                    <div class="col-lg-6">
+                        <div class="story-visual-panel">
+                            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+                                <div>
+                                    <span class="text-danger font-monospace small fw-bold text-uppercase">AASCloud Journey</span>
+                                    <h4 class="text-white fw-bold mb-0 mt-1">12+ Years of Global Excellence</h4>
+                                </div>
+                                <span class="badge bg-danger px-3 py-2">Est. 2012</span>
+                            </div>
+
+                            <div class="milestone-row">
+                                <strong class="text-white d-block">2012 — Financial &amp; Advisory Foundation</strong>
+                                <span class="text-secondary small">Founded in San Francisco to make institutional-grade wealth, tax, and risk strategies accessible globally.</span>
+                            </div>
+
+                            <div class="milestone-row">
+                                <strong class="text-white d-block">2018 — Multi-Cloud &amp; DevOps Expansion</strong>
+                                <span class="text-secondary small">Launched certified AWS, Microsoft Azure, and Google Cloud engineering practices for high-growth enterprises.</span>
+                            </div>
+
+                            <div class="milestone-row">
+                                <strong class="text-white d-block">2023 — 3,500+ Cloud Marketplace Offers</strong>
+                                <span class="text-secondary small">Published hardened Linux &amp; Windows VM images and Kubernetes solutions across Azure, AWS, and GCP.</span>
+                            </div>
+
+                            <div class="milestone-row mb-0">
+                                <strong class="text-white d-block">2026 — Enterprise AI &amp; FinTech Architecture</strong>
+                                <span class="text-secondary small">Delivering private RAG AI models, real-time fraud scoring, and PCI-DSS compliant core banking infrastructure.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Content -->
+                    <div class="col-lg-6">
+                        <div class="pill-badge">Who We Are</div>
+                        <h2 class="text-white fw-bold mb-3" style="font-size: clamp(28px, 3.5vw, 38px);">
+                            A Firm Built on <span style="color:var(--red-primary);">Integrity</span> &amp; Measurable Results
+                        </h2>
+                        <p class="text-light opacity-75 fs-6 lh-lg">
+                            We are a multidisciplinary team of certified cloud architects, DevSecOps engineers, AI researchers, and financial advisors dedicated to helping enterprises achieve operational clarity and long-term prosperity.
+                        </p>
+                        <p class="text-secondary lh-lg">
+                            Today, AASCloud serves 500+ enterprise clients and manages over $4.2B in assets and mission-critical cloud workloads across 30+ countries—with zero vendor lock-in and bank-grade compliance at every layer.
+                        </p>
+
+                        <div class="check-grid">
+                            <div class="check-pill"><i class="fa-solid fa-circle-check"></i><span>Certified Cloud &amp; CFP Experts</span></div>
+                            <div class="check-pill"><i class="fa-solid fa-circle-check"></i><span>SEC &amp; SOC2 / PCI-DSS Aligned</span></div>
+                            <div class="check-pill"><i class="fa-solid fa-circle-check"></i><span>Client-First Fiduciary Ethics</span></div>
+                            <div class="check-pill"><i class="fa-solid fa-circle-check"></i><span>Zero Vendor Lock-In Architecture</span></div>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="services.html" class="btn-red-glow">View Our Services <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="marketplace.html" class="btn-red-outline">Explore Marketplace</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="red-divider"></div>
+
+        <!-- ===== MISSION / VISION / VALUES ===== -->
+        <section class="section-pad">
+            <div class="container">
+                <div class="sec-header">
+                    <div class="pill-badge">Our Foundation</div>
+                    <h2>Mission, Vision &amp; <span>Values</span></h2>
+                    <p>The core principles guiding every cloud architecture we deploy and every financial strategy we craft.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="red-card">
+                            <div class="red-icon"><i class="fa-solid fa-bullseye"></i></div>
+                            <h4 class="text-white fw-bold mb-3">Our Mission</h4>
+                            <p class="text-secondary mb-0 lh-lg">To democratize access to world-class cloud infrastructure, private AI models, and financial planning—empowering every client to scale with confidence.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="red-card">
+                            <div class="red-icon"><i class="fa-solid fa-eye"></i></div>
+                            <h4 class="text-white fw-bold mb-3">Our Vision</h4>
+                            <p class="text-secondary mb-0 lh-lg">To be the most trusted technology and financial partner for modern digital enterprises—globally recognized for security, integrity, and innovation.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="red-card">
+                            <div class="red-icon"><i class="fa-solid fa-heart"></i></div>
+                            <h4 class="text-white fw-bold mb-3">Our Values</h4>
+                            <p class="text-secondary mb-0 lh-lg">Radical transparency, client-first engineering, continuous automation, and an unwavering commitment to ethical and compliant operations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="red-divider"></div>
+
+        <!-- ===== LEADERSHIP TEAM ===== -->
+        <section class="section-pad">
+            <div class="container">
+                <div class="sec-header">
+                    <div class="pill-badge">Meet the Experts</div>
+                    <h2>Our Leadership <span>Team</span></h2>
+                    <p>Seasoned professionals with decades of combined experience across hyperscale cloud engineering, AI systems, and global financial markets.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-avatar">JH</div>
+                            <h5 class="text-white fw-bold mb-1">Jordan Hayes</h5>
+                            <span class="text-danger small fw-semibold d-block mb-3">Chief Executive Officer</span>
+                            <p class="text-secondary small mb-3">15+ years leading enterprise cloud transformation and institutional wealth strategy.</p>
+                            <div class="team-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-avatar">TB</div>
+                            <h5 class="text-white fw-bold mb-1">Taylor Brooks</h5>
+                            <span class="text-danger small fw-semibold d-block mb-3">Chief Investment &amp; FinOps Officer</span>
+                            <p class="text-secondary small mb-3">Specialist in quantitative portfolio modeling, cloud FinOps, and capital optimization.</p>
+                            <div class="team-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-avatar">ML</div>
+                            <h5 class="text-white fw-bold mb-1">Morgan Lane</h5>
+                            <span class="text-danger small fw-semibold d-block mb-3">VP of Cloud &amp; AI Architecture</span>
+                            <p class="text-secondary small mb-3">Principal architect across AWS, Azure, GCP Kubernetes clusters, and private LLM pipelines.</p>
+                            <div class="team-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-avatar">CR</div>
+                            <h5 class="text-white fw-bold mb-1">Casey Rivera</h5>
+                            <span class="text-danger small fw-semibold d-block mb-3">Head of Risk &amp; BFSI Compliance</span>
+                            <p class="text-secondary small mb-3">Leads PCI-DSS, SOC2, CIS hardening benchmarks, and core banking security governance.</p>
+                            <div class="team-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== COUNTERS ===== -->
+        <section class="section-pad pt-0">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="counter-box">
+                            <i class="fa-solid fa-users"></i>
+                            <h3>500+</h3>
+                            <p>Global Enterprise Clients</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="counter-box">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <h3>$4.2B+</h3>
+                            <p>Assets &amp; Cloud Workloads</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="counter-box">
+                            <i class="fa-solid fa-globe"></i>
+                            <h3>30+</h3>
+                            <p>Countries Served</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="counter-box">
+                            <i class="fa-solid fa-trophy"></i>
+                            <h3>18+</h3>
+                            <p>Industry Awards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== NEWSLETTER ===== -->
+        <section class="section-pad pt-0">
+            <div class="container">
+                <div class="red-card">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-6">
+                            <h4 class="text-white fw-bold mb-1"><i class="fa-solid fa-envelope-open-text text-danger me-2"></i> Stay Ahead of Cloud &amp; Markets</h4>
+                            <p class="mb-0 text-secondary">Weekly cloud engineering insights, AI updates, and financial strategies straight to your inbox.</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <form class="nl-input-group" action="#" method="post">
+                                <input type="email" placeholder="Enter your email address" required>
+                                <button type="submit" class="btn-red-glow border-0">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="aas-footer">
+        <div class="container">
+            <div class="row g-4 pb-4 border-bottom border-secondary border-opacity-25">
+                <div class="col-lg-4">
+                    <a href="index.html" class="aas-logo mb-3">
+                        <div class="aas-logo-badge">A</div>
+                        <span>AAS<strong>Cloud</strong></span>
+                    </a>
+                    <p>Empowering individuals and enterprises with AWS, Azure, Google Cloud, AI models, and intelligent financial strategies since 2012.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-light"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h5>Our Solutions</h5>
+                    <ul>
+                        <li><a href="services.html">AWS, Azure &amp; GCP</a></li>
+                        <li><a href="services.html#ai-models">Enterprise AI Models</a></li>
+                        <li><a href="banking.html">Banking &amp; FinTech</a></li>
+                        <li><a href="services.html">Wealth &amp; Tax Advisory</a></li>
+                        <li><a href="marketplace.html">Marketplace Products</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Get In Touch</h5>
+                    <ul>
+                        <li><i class="fa-solid fa-location-dot text-danger me-2"></i> 42 Harbor View, San Francisco, CA</li>
+                        <li><i class="fa-solid fa-phone text-danger me-2"></i> +91- 5567354147</li>
+                        <li><i class="fa-solid fa-envelope text-danger me-2"></i> as@aascloud.info</li>
+                        <li><i class="fa-solid fa-clock text-danger me-2"></i> Mon–Fri, 9am – 6pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between pt-4 small">
+                <span>&copy; 2026 AASCloud. All Rights Reserved.</span>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-secondary text-decoration-none">Terms of Use</a>
+                    <a href="#" class="text-secondary text-decoration-none">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('navToggle').addEventListener('click', function () {
+            document.getElementById('mainNav').classList.toggle('mobile-open');
+        });
+    </script>
+</body>
+</html>

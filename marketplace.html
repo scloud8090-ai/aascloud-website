@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Marketplace Catalog | AASCLOUD — Azure, AWS & GCP</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --bg-obsidian: #070609;
+      --red-primary: #ff2a2a;
+      --red-deep: #990f15;
+    }
+
+    body {
+      background-color: var(--bg-obsidian);
+      color: #f8fafc;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(255, 42, 42, 0.16) 0%, transparent 40%),
+        radial-gradient(circle at 88% 18%, rgba(153, 15, 21, 0.18) 0%, transparent 42%),
+        radial-gradient(circle at 50% 55%, rgba(255, 42, 42, 0.07) 0%, transparent 52%),
+        radial-gradient(circle at 85% 88%, rgba(153, 15, 21, 0.14) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    /* Red Architectural Grid + Diagonal Laser Streaks */
+    .bg-red-grid {
+      background-size: 48px 48px;
+      background-image:
+        linear-gradient(to right, rgba(255, 42, 42, 0.065) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 42, 42, 0.065) 1px, transparent 1px);
+    }
+
+    .bg-red-grid::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 175px,
+        rgba(255, 42, 42, 0.06) 176px,
+        rgba(255, 42, 42, 0.06) 177px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Moving Red Laser Scanline */
+    .red-scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ff2a2a, #ff7b7b, #ff2a2a, transparent);
+      box-shadow: 0 0 18px rgba(255, 42, 42, 0.7);
+      opacity: 0.55;
+      animation: redScan 9s linear infinite;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    @keyframes redScan {
+      0% { top: 0%; }
+      100% { top: 100%; }
+    }
+
+    /* Dark Obsidian Elevated Card with Crimson Border */
+    .clean-card {
+      background: rgba(17, 14, 21, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 42, 42, 0.2);
+      box-shadow:
+        0 8px 24px -6px rgba(0, 0, 0, 0.55),
+        0 1px 3px 0 rgba(255, 42, 42, 0.08);
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .clean-card:hover {
+      transform: translateY(-4px);
+      border-color: #ff2a2a;
+      box-shadow:
+        0 18px 36px -10px rgba(255, 42, 42, 0.28),
+        0 4px 12px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Static Dark Glass Panel */
+    .clean-panel {
+      background: rgba(17, 14, 21, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 42, 42, 0.24);
+      box-shadow:
+        0 12px 32px -8px rgba(0, 0, 0, 0.6),
+        0 1px 3px 0 rgba(255, 42, 42, 0.08);
+    }
+
+    /* Primary Crimson Gradient Button */
+    .btn-primary {
+      background: linear-gradient(135deg, #ff2a2a 0%, #c8141b 55%, #990f15 100%);
+      background-size: 160% 160%;
+      box-shadow: 0 6px 20px -4px rgba(255, 42, 42, 0.45);
+      border: 1px solid rgba(255, 107, 107, 0.35);
+      transition: all 0.22s ease;
+    }
+    .btn-primary:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -4px rgba(255, 42, 42, 0.65);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* Secondary Dark Outline Button */
+    .btn-secondary {
+      background: rgba(24, 18, 30, 0.9);
+      border: 1px solid rgba(255, 42, 42, 0.32);
+      color: #f8fafc;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+      transition: all 0.22s ease;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 42, 42, 0.14);
+      border-color: #ff2a2a;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(255, 42, 42, 0.25);
+    }
+
+    /* Hide scrollbar for category pills */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Smooth accordion transition */
+    .faq-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.28s ease-out;
+    }
+    .faq-item[data-open="true"] .faq-content {
+      grid-template-rows: 1fr;
+    }
+    .faq-inner { overflow: hidden; }
+    .faq-icon { transition: transform 0.28s ease; }
+    .faq-item[data-open="true"] .faq-icon { transform: rotate(180deg); }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-red-600 selection:text-white bg-red-grid">
+
+  <!-- Moving Red Scanline -->
+  <div class="red-scanline"></div>
+
+  <!-- ==================== ARCHITECTURAL RED BACKGROUND SVG STRUCTURES ==================== -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <!-- Top-Right Concentric Structural Rings & Crosshairs -->
+    <svg class="absolute -top-24 -right-24 w-[620px] h-[620px] text-red-500/[0.12]" viewBox="0 0 600 600" fill="none">
+      <circle cx="300" cy="300" r="260" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 6"/>
+      <circle cx="300" cy="300" r="195" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="300" cy="300" r="130" stroke="#ff6b6b" stroke-opacity="0.5" stroke-width="1.2" stroke-dasharray="4 8"/>
+      <line x1="300" y1="0" x2="300" y2="600" stroke="currentColor" stroke-width="0.8"/>
+      <line x1="0" y1="300" x2="600" y2="300" stroke="currentColor" stroke-width="0.8"/>
+      <circle cx="300" cy="105" r="4" fill="#ff2a2a" fill-opacity="0.55"/>
+      <circle cx="495" cy="300" r="4" fill="#ff6b6b" fill-opacity="0.55"/>
+      <circle cx="300" cy="495" r="4" fill="#ff2a2a" fill-opacity="0.55"/>
+      <circle cx="105" cy="300" r="4" fill="#ff6b6b" fill-opacity="0.55"/>
+    </svg>
+
+    <!-- Mid-Left Isometric Hexagon Cloud Mesh Structure -->
+    <svg class="absolute top-[38%] -left-28 w-[460px] h-[460px] text-red-600/[0.10]" viewBox="0 0 400 400" fill="none">
+      <polygon points="200,20 355,110 355,290 200,380 45,290 45,110" stroke="currentColor" stroke-width="1.3"/>
+      <polygon points="200,75 308,138 308,262 200,325 92,262 92,138" stroke="#ff2a2a" stroke-width="1.1" stroke-dasharray="5 5"/>
+      <line x1="200" y1="20" x2="200" y2="380" stroke="currentColor" stroke-width="0.9"/>
+      <line x1="45" y1="110" x2="355" y2="290" stroke="currentColor" stroke-width="0.9"/>
+      <line x1="355" y1="110" x2="45" y2="290" stroke="currentColor" stroke-width="0.9"/>
+    </svg>
+
+    <!-- Bottom-Right Diagonal Architectural Wave Lines -->
+    <svg class="absolute -bottom-16 right-0 w-[680px] h-[340px] text-red-500/[0.10]" viewBox="0 0 700 350" fill="none">
+      <path d="M0 320 Q 180 180, 360 260 T 700 120" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M0 350 Q 200 210, 380 290 T 700 160" stroke="#ff6b6b" stroke-width="1.2"/>
+      <path d="M60 350 Q 240 240, 420 320 T 700 210" stroke="currentColor" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- ==================== 1. CLEAN UNIFIED NAVIGATION BAR (LINKED TO HOME & MAIN PAGES) ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-[#070609]/90 backdrop-blur-xl border-b border-red-500/25 shadow-[0_4px_24px_rgba(0,0,0,0.65)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- AASCLOUD Brand Logo -> Linked to Home Page (index.html) -->
+        <a href="index.html" class="flex items-center gap-3 group focus:outline-none">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 via-red-600 to-red-900 flex items-center justify-center text-white font-extrabold text-lg shadow-[0_0_18px_rgba(255,42,42,0.45)] group-hover:scale-105 transition-transform">
+            A
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold tracking-tight text-white text-xl leading-none flex items-center gap-1">
+              AAS<strong class="text-red-500">Cloud</strong>
+            </span>
+          </div>
+        </a>
+
+        <!-- Clean Main Navigation Links (No Extra Anchor Clutter) -->
+        <nav class="hidden lg:flex items-center gap-2 text-sm font-semibold text-slate-300">
+          <a href="index.html" class="px-3.5 py-2 rounded-lg hover:text-red-400 hover:bg-red-500/10 transition-colors">Home</a>
+          <a href="about.html" class="px-3.5 py-2 rounded-lg hover:text-red-400 hover:bg-red-500/10 transition-colors">About</a>
+          <a href="services.html" class="px-3.5 py-2 rounded-lg hover:text-red-400 hover:bg-red-500/10 transition-colors">Services</a>
+          <a href="marketplace.html" aria-current="page" class="px-4 py-2 rounded-lg text-red-400 bg-red-500/15 font-bold border border-red-500/35">Marketplace</a>
+          <a href="banking.html" class="px-3.5 py-2 rounded-lg hover:text-red-400 hover:bg-red-500/10 transition-colors">Banking</a>
+          <a href="contact.html" class="px-3.5 py-2 rounded-lg hover:text-red-400 hover:bg-red-500/10 transition-colors">Contact</a>
+        </nav>
+
+        <!-- Right CTA Buttons (Back to Home + Request Build) -->
+        <div class="flex items-center gap-2.5">
+          <a href="index.html" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl btn-secondary text-xs sm:text-sm font-bold">
+            <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+            <span>Home</span>
+          </a>
+
+          <button onclick="openRequestModal('General Marketplace Inquiry')" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary text-white text-xs sm:text-sm font-bold cursor-pointer">
+            <span>Talk to us</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button id="mobileMenuBtn" aria-label="Open navigation menu" class="lg:hidden p-2.5 rounded-xl border border-red-500/30 bg-[#110e15] text-slate-200 hover:bg-red-500/15 transition-colors">
+            <svg id="menuIconOpen" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <svg id="menuIconClose" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-[#0c0a10]/98 backdrop-blur-xl border-b border-red-500/30 px-4 pt-3 pb-5 shadow-2xl">
+      <div class="grid grid-cols-2 gap-2 text-sm font-semibold text-slate-300 mb-4">
+        <a href="index.html" class="mobile-link px-3 py-2.5 rounded-lg hover:bg-red-500/15 hover:text-red-400">Home</a>
+        <a href="about.html" class="mobile-link px-3 py-2.5 rounded-lg hover:bg-red-500/15 hover:text-red-400">About</a>
+        <a href="services.html" class="mobile-link px-3 py-2.5 rounded-lg hover:bg-red-500/15 hover:text-red-400">Services</a>
+        <a href="marketplace.html" class="mobile-link px-3 py-2.5 rounded-lg bg-red-500/15 text-red-400 border border-red-500/35 font-bold">Marketplace</a>
+        <a href="banking.html" class="mobile-link px-3 py-2.5 rounded-lg hover:bg-red-500/15 hover:text-red-400">Banking</a>
+        <a href="contact.html" class="mobile-link px-3 py-2.5 rounded-lg hover:bg-red-500/15 hover:text-red-400">Contact</a>
+      </div>
+      <div class="grid grid-cols-2 gap-2.5">
+        <a href="index.html" class="py-2.5 px-4 rounded-xl btn-secondary text-center text-sm font-bold">
+          &larr; Home Page
+        </a>
+        <button onclick="openRequestModal('General Marketplace Inquiry')" class="py-2.5 px-4 rounded-xl btn-primary text-white text-sm font-bold">
+          Talk to us
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="relative z-10">
+    <!-- ==================== 2. CRIMSON RED HERO SECTION ==================== -->
+    <section class="relative overflow-hidden border-b border-red-500/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-20 sm:pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center mb-14">
+          <!-- Left Content Column -->
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-red-500/15 border border-red-500/40 text-red-400 font-mono text-xs font-semibold tracking-wider uppercase mb-6">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              CLOUD MARKETPLACE CATALOG
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-[52px] font-extrabold tracking-tight text-white leading-[1.12] mb-6">
+              Marketplace-ready VM images, <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-orange-400">already published</span> across the clouds you run on
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mb-8">
+              <strong class="font-bold text-white">AASCLOUD</strong> has already published <strong class="font-semibold text-red-400">3,500+ virtual machine images</strong> and application offers across the Azure, AWS and Google Cloud marketplaces — across every major Linux distribution and Windows Server. Browse the live catalog below, or tell us what you need and we'll build it.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3.5">
+              <a href="#catalog" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl btn-primary text-white font-bold text-sm sm:text-base">
+                <span>Browse the catalog</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"/></svg>
+              </a>
+              <button onclick="openRequestModal('Custom VM Image Build')" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl btn-secondary font-bold text-sm sm:text-base cursor-pointer">
+                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                <span>Request a custom image</span>
+              </button>
+              <a href="index.html" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl btn-secondary font-bold text-sm sm:text-base">
+                <span>&larr; Back to Home</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Dark Crimson Architectural Stack Overview Card -->
+          <div class="lg:col-span-5">
+            <div class="clean-panel rounded-2xl p-6 border-red-500/35 relative overflow-hidden">
+              <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-red-600/20 blur-2xl pointer-events-none"></div>
+
+              <div class="flex items-center justify-between pb-4 mb-5 border-b border-red-500/20">
+                <div>
+                  <span class="font-mono text-[11px] uppercase tracking-wider text-red-400 font-semibold">AASCLOUD Catalog Architecture</span>
+                  <h3 class="text-base font-bold text-white mt-0.5">Multi-Cloud Certified Images</h3>
+                </div>
+                <span class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live Sync
+                </span>
+              </div>
+
+              <!-- 3 Architectural Tiers -->
+              <div class="space-y-3">
+                <div class="p-3.5 rounded-xl bg-white/[0.03] border border-red-500/20 flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-white">1. Hyperscaler Marketplaces</div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">Azure VHD &bull; AWS AMI &bull; Google Cloud VM</div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-red-400 bg-red-500/15 px-2.5 py-1 rounded-lg border border-red-500/30">3 Clouds</span>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-white/[0.03] border border-red-500/20 flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-white">2. Security &amp; Hardening Baseline</div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">CIS Level 1/2 &bull; OpenSCAP &bull; Trivy CVE Audited</div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-emerald-400 bg-emerald-500/15 px-2.5 py-1 rounded-lg border border-emerald-500/30">0 Crit CVE</span>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-white/[0.03] border border-red-500/20 flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-white">3. 10 Enterprise Base Distributions</div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">Ubuntu, RHEL, Debian, Rocky, Alma, Windows &amp; more</div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-rose-300 bg-rose-500/15 px-2.5 py-1 rounded-lg border border-rose-500/30">x86 &amp; ARM</span>
+                </div>
+              </div>
+
+              <!-- Quick Stats Footer -->
+              <div class="grid grid-cols-3 gap-2 pt-4 mt-5 border-t border-red-500/20 text-center">
+                <div>
+                  <div class="text-lg font-extrabold text-white">3,500+</div>
+                  <div class="text-[11px] text-slate-400 font-medium">Live Offers</div>
+                </div>
+                <div class="border-x border-red-500/20">
+                  <div class="text-lg font-extrabold text-red-500">16</div>
+                  <div class="text-[11px] text-slate-400 font-medium">Categories</div>
+                </div>
+                <div>
+                  <div class="text-lg font-extrabold text-emerald-400">&lt; 3 min</div>
+                  <div class="text-[11px] text-slate-400 font-medium">Deploy Time</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Highlight Stats Card / Cloud Platform Banner -->
+        <div class="clean-panel rounded-2xl p-5 sm:p-7 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500/20 to-red-900/30 border border-red-500/40 flex items-center justify-center text-red-400 shrink-0 font-mono font-extrabold text-lg">
+              3.5k+
+            </div>
+            <div>
+              <p class="text-base sm:text-lg font-bold text-white">
+                3,500+ products published across Azure, AWS &amp; Google Cloud Marketplace
+              </p>
+              <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                Select any hyperscaler below to filter AASCLOUD's live catalog offers immediately.
+              </p>
+            </div>
+          </div>
+
+          <!-- Interactive Cloud Platform Pills -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button onclick="quickFilterCloud('Azure')" class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-400/30 text-sky-300 text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+              <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+              <span>Azure Marketplace</span>
+            </button>
+
+            <button onclick="quickFilterCloud('AWS')" class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span>AWS Marketplace</span>
+            </button>
+
+            <button onclick="quickFilterCloud('GCP')" class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-300 text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Google Cloud Marketplace</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. DISTRIBUTIONS SECTION ==================== -->
+    <section id="distributions" class="py-16 sm:py-24 border-b border-red-500/20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-wider text-red-400">Base Operating Systems</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+            Ten distributions, from Linux to Windows Server
+          </h2>
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed">
+            Every distribution ships with cloud-init or Sysprep provisioning configured, native package repositories pinned, cloud guest agents verified, and baseline security hardening ready out of the box.
+          </p>
+        </div>
+
+        <!-- 5x2 Responsive Grid of 10 Distributions -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10" id="distributionsGrid">
+          <div onclick="quickFilterDistro('Ubuntu')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-orange-500/15 text-orange-400 font-mono font-bold text-xs flex items-center justify-center border border-orange-500/30">UBU</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">apt / cloud-init</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">Ubuntu</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">LTS and interim releases, Minimal and Pro variants with Livepatch &amp; ESM readiness.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>20.04 / 22.04 / 24.04</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('Debian')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-rose-500/15 text-rose-400 font-mono font-bold text-xs flex items-center justify-center border border-rose-500/30">DEB</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">apt / dpkg</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">Debian</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Stable and oldstable releases, with optional backports and minimal footprint profiles.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Debian 11 / 12</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('RHEL')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-red-500/20 text-red-400 font-mono font-bold text-xs flex items-center justify-center border border-red-500/35">RHEL</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">dnf / SELinux</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">Red Hat Enterprise Linux</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">RHEL 8 and 9 images supporting both BYOS subscriptions and hourly PAYG billing.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>RHEL 8 / 9</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('AlmaLinux')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-indigo-500/15 text-indigo-300 font-mono font-bold text-xs flex items-center justify-center border border-indigo-500/30">ALMA</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">dnf / EL</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">AlmaLinux</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">1:1 binary RHEL-compatible rebuild with zero licensing overhead and long-term ABI stability.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>AlmaLinux 8 / 9</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('Rocky')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-400 font-mono font-bold text-xs flex items-center justify-center border border-emerald-500/30">RCKY</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">dnf / FIPS</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">Rocky Linux</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Enterprise-grade RHEL compatibility across 8 &amp; 9 streams with hardened kernel defaults.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Rocky 8 / 9</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('openSUSE')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-lime-500/15 text-lime-400 font-mono font-bold text-xs flex items-center justify-center border border-lime-500/30">SUSE</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">zypper / YaST</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">openSUSE</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Leap and Tumbleweed builds with zypper-native provisioning and transactional update support.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Leap 15.x / TW</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('CentOS')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-purple-500/15 text-purple-300 font-mono font-bold text-xs flex items-center justify-center border border-purple-500/30">CENT</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">dnf / Stream</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">CentOS</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">CentOS Stream 9 images plus structured migration paths off EOL CentOS 7 &amp; 8 workloads.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Stream 9 / Legacy</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('Windows')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-sky-500/15 text-sky-300 font-mono font-bold text-xs flex items-center justify-center border border-sky-500/30">WIN</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">Sysprep / WinRM</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">Windows Server</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Windows Server 2019, 2022 and 2025 Datacenter &amp; Core images with automated Sysprep generalization.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>2019 / 2022 / 2025</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('Alpine')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-300 font-mono font-bold text-xs flex items-center justify-center border border-cyan-500/30">ALP</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">apk / musl</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">Alpine Linux</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">musl-based, ultra-compact footprint ideal for minimal attack surfaces and container hosts.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Alpine 3.19 / 3.20</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+
+          <div onclick="quickFilterDistro('Kali')" class="clean-card group rounded-2xl p-5 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-white/10 text-slate-200 font-mono font-bold text-xs flex items-center justify-center border border-white/20">KALI</span>
+                <span class="font-mono text-[11px] text-slate-400 group-hover:text-red-400">apt / SecOps</span>
+              </div>
+              <h3 class="font-bold text-white text-base group-hover:text-red-400 transition-colors">Kali Linux</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Offensive-security toolchain pre-installed for authorized red-team and cloud pen-testing labs.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Rolling Cloud</span>
+              <span class="text-red-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Filter &rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Callout Banner -->
+        <div class="clean-panel rounded-2xl p-6 sm:p-8 border-red-500/35 bg-gradient-to-r from-[#180d14] via-[#110e15] to-[#1f0d15] flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div class="max-w-2xl">
+            <h3 class="text-lg sm:text-xl font-bold text-white">Your distribution isn't here?</h3>
+            <p class="text-sm sm:text-base text-slate-300 mt-1.5">
+              Alpine, Oracle Linux, Fedora, Flatcar, or a hardened internal derivative — if it boots in the cloud, AASCLOUD can package and publish it.
+            </p>
+          </div>
+          <button onclick="openRequestModal('Custom OS / Derivative Image')" class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl btn-primary text-white text-sm font-bold cursor-pointer">
+            <span>Tell us what you need</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. INTERACTIVE PRODUCT CATALOG SECTION ==================== -->
+    <section id="catalog" class="py-16 sm:py-24 border-b border-red-500/20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="max-w-3xl mb-8">
+          <span class="font-mono text-xs font-semibold uppercase tracking-wider text-red-400">Live Marketplace Directory</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-3">
+            Search our published marketplace catalog
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300">
+            Explore a representative sample of <strong class="font-semibold text-white">1,235 curated listings</strong> from AASCLOUD's 3,500+ live offers across Azure, AWS, and Google Cloud Marketplace. Filter by platform, base OS, or solution category.
+          </p>
+        </div>
+
+        <!-- Search & Filter Control Panel -->
+        <div class="clean-panel rounded-2xl p-4 sm:p-5 mb-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-center">
+            <!-- Search Bar with Ctrl+K / Cmd+K Shortcut -->
+            <div class="lg:col-span-5 relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg>
+              </div>
+              <input
+                id="catalogSearchInput"
+                type="text"
+                placeholder="Search VM images, stacks, databases, AI tools..."
+                class="w-full pl-10 pr-20 py-2.5 rounded-xl border border-red-500/25 bg-[#09080c] focus:bg-[#120e17] text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500/30 focus:border-red-500 transition-all"
+              />
+              <div class="absolute inset-y-0 right-0 pr-2.5 flex items-center gap-1.5">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden text-xs text-slate-400 hover:text-white px-1.5 py-0.5 rounded cursor-pointer">Clear</button>
+                <kbd id="shortcutBadge" class="hidden sm:inline-flex items-center px-2 py-0.5 rounded border border-red-500/30 bg-[#18121e] font-mono text-[11px] font-medium text-red-400">⌘K</kbd>
+              </div>
+            </div>
+
+            <!-- Cloud Filter Pills -->
+            <div class="lg:col-span-4 flex flex-wrap items-center gap-1.5" id="cloudFilterGroup">
+              <button data-cloud="ALL" onclick="setCloudFilter('ALL')" class="cloud-pill active px-3 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-red-600 to-red-800 text-white shadow-xs transition-all cursor-pointer">
+                All Clouds
+              </button>
+              <button data-cloud="Azure" onclick="setCloudFilter('Azure')" class="cloud-pill px-3 py-2 rounded-lg text-xs font-semibold bg-[#09080c] text-slate-300 hover:text-red-400 border border-red-500/25 transition-all cursor-pointer">
+                Azure
+              </button>
+              <button data-cloud="AWS" onclick="setCloudFilter('AWS')" class="cloud-pill px-3 py-2 rounded-lg text-xs font-semibold bg-[#09080c] text-slate-300 hover:text-red-400 border border-red-500/25 transition-all cursor-pointer">
+                AWS
+              </button>
+              <button data-cloud="GCP" onclick="setCloudFilter('GCP')" class="cloud-pill px-3 py-2 rounded-lg text-xs font-semibold bg-[#09080c] text-slate-300 hover:text-red-400 border border-red-500/25 transition-all cursor-pointer">
+                GCP
+              </button>
+            </div>
+
+            <!-- Distribution & Sort Dropdowns -->
+            <div class="lg:col-span-3 grid grid-cols-2 gap-2">
+              <select id="distroSelect" onchange="setDistroFilter(this.value)" aria-label="Filter by distribution" class="w-full px-3 py-2.5 rounded-xl border border-red-500/25 bg-[#09080c] text-xs sm:text-sm font-medium text-slate-200 focus:outline-none focus:border-red-500 cursor-pointer">
+                <option value="ALL">All Distros</option>
+                <option value="Ubuntu">Ubuntu</option>
+                <option value="Debian">Debian</option>
+                <option value="RHEL">RHEL</option>
+                <option value="AlmaLinux">AlmaLinux</option>
+                <option value="Rocky">Rocky Linux</option>
+                <option value="openSUSE">openSUSE</option>
+                <option value="CentOS">CentOS</option>
+                <option value="Windows">Windows Server</option>
+                <option value="Alpine">Alpine Linux</option>
+                <option value="Kali">Kali Linux</option>
+              </select>
+
+              <select id="sortSelect" onchange="setSortOrder(this.value)" aria-label="Sort catalog" class="w-full px-3 py-2.5 rounded-xl border border-red-500/25 bg-[#09080c] text-xs sm:text-sm font-medium text-slate-200 focus:outline-none focus:border-red-500 cursor-pointer">
+                <option value="name-asc">Name (A–Z)</option>
+                <option value="name-desc">Name (Z–A)</option>
+                <option value="category">Category</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Horizontal Scrollable Category Filter Pills -->
+          <div class="mt-4 pt-4 border-t border-red-500/15">
+            <div id="categoryPillsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Counter & Active Filter Reset Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <p id="resultsCounter" class="text-sm font-medium text-slate-400">
+            Showing <span class="font-semibold text-white">1–20</span> of <span class="font-semibold text-white">1,235</span> products
+          </p>
+          <div id="activeFilterBadges" class="flex flex-wrap items-center gap-2"></div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- Product cards injected via JS -->
+        </div>
+
+        <!-- Empty State CTA -->
+        <div id="emptyStateBox" class="hidden clean-panel rounded-2xl border-2 border-dashed border-red-500/35 p-10 text-center my-6">
+          <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/35 text-red-400 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white">No matching listings in this view</h3>
+          <p class="text-sm sm:text-base text-slate-300 max-w-xl mx-auto mt-1.5 mb-6">
+            If a search comes up empty, that's a build request — not a dead end. AASCLOUD packages and publishes custom VM images to Azure, AWS, and GCP on demand.
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button onclick="openRequestModal(document.getElementById('catalogSearchInput').value || 'Custom Marketplace Build')" class="px-5 py-2.5 rounded-xl btn-primary text-white text-sm font-bold cursor-pointer">
+              Request Build for This Stack
+            </button>
+            <button onclick="resetAllFilters()" class="px-5 py-2.5 rounded-xl btn-secondary text-sm font-bold cursor-pointer">
+              Reset Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div id="paginationBar" class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-red-500/20">
+          <p class="text-xs font-mono text-slate-400" id="paginationPageLabel">Page 1 of 62 (1,235 total published offers)</p>
+          <nav aria-label="Catalog pagination" class="inline-flex items-center gap-1 clean-panel p-1.5 rounded-xl" id="paginationControls">
+            <!-- Populated via JS -->
+          </nav>
+        </div>
+
+        <!-- Browse Catalog by Category Summary Grid -->
+        <div class="mt-16 pt-12 border-t border-red-500/20">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2">
+            <div>
+              <h3 class="text-xl font-bold text-white">Browse the catalog by category</h3>
+              <p class="text-sm text-slate-400 mt-1">Jump directly into any of AASCLOUD's 16 pre-packaged enterprise software domains.</p>
+            </div>
+            <button onclick="setCategoryFilter('All categories')" class="text-xs font-semibold text-red-400 hover:text-red-300 cursor-pointer self-start sm:self-auto">
+              View all 1,235 offers &rarr;
+            </button>
+          </div>
+
+          <div id="categorySummaryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. OFFER TYPES SECTION ==================== -->
+    <section id="offers" class="py-16 sm:py-24 border-b border-red-500/20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-wider text-red-400">Commercial &amp; Procurement Models</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+            Public listings and private offers, on any marketplace
+          </h2>
+          <p class="text-base text-slate-300 leading-relaxed">
+            Whether you are acquiring new cloud customers through open discovery or closing multi-year enterprise deals via private procurement, AASCLOUD structures and publishes both offer types natively.
+          </p>
+        </div>
+
+        <!-- Two-Column Comparison Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+          <!-- Public Offers Card -->
+          <div class="clean-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-400 font-mono text-xs font-semibold mb-5">
+                PUBLIC MARKETPLACE LISTINGS
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Public Offers</h3>
+              <p class="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed">
+                Listed openly in Azure Marketplace, AWS Marketplace, and Google Cloud Marketplace for instant self-service deployment by any cloud customer globally.
+              </p>
+              <ul class="space-y-3.5 text-sm text-slate-300">
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                  <span><strong class="text-white">Discoverable in marketplace search</strong> with SEO-tuned descriptions, architecture diagrams, and verified badges.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                  <span><strong class="text-white">Flexible pricing models:</strong> Pay-As-You-Go (hourly/monthly), Bring Your Own License (BYOL), or Free-tier community builds.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                  <span><strong class="text-white">Counts toward cloud commitment spend</strong> (MACC on Azure, EDP on AWS, CUD on Google Cloud).</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-8 pt-5 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+              <span>DEPLOY TIME: &lt; 3 MINUTES</span>
+              <span class="text-emerald-400 font-semibold">GLOBAL AVAILABILITY</span>
+            </div>
+          </div>
+
+          <!-- Dedicated Private Offers Card -->
+          <div class="clean-card rounded-2xl border-red-500/40 p-7 sm:p-8 flex flex-col justify-between relative">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/15 border border-red-500/35 text-red-400 font-mono text-xs font-semibold mb-5">
+                ENTERPRISE &amp; ISV PROCUREMENT
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Dedicated Private Offers</h3>
+              <p class="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed">
+                Scoped exclusively to named enterprise buyers, specific tenant IDs, or managed service accounts with bespoke commercial terms and golden image baselines.
+              </p>
+              <ul class="space-y-3.5 text-sm text-slate-300">
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                  <span><strong class="text-white">Named customer/tenant only</strong> — invisible to the public catalog and restricted to target AWS Account IDs, Azure Tenants, or GCP Billing Accounts.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                  <span><strong class="text-white">Custom pricing &amp; EULA terms</strong> including multi-year installment schedules, tiered volume discounts, and custom legal amendments.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                  <span><strong class="text-white">Ideal for OEM, reseller &amp; enterprise agreements</strong> requiring CIS Level 2 hardened golden images or proprietary internal agents.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-8 pt-5 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+              <span>SCOPED TENANT ACCESS</span>
+              <span class="text-red-400 font-semibold">CUSTOM SLA &amp; TERMS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner CTA -->
+        <div class="rounded-2xl bg-gradient-to-r from-[#2b0b12] via-[#1c0a11] to-[#2b0b12] border border-red-500/45 text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 shadow-[0_12px_36px_rgba(255,42,42,0.18)]">
+          <div>
+            <h3 class="text-xl sm:text-2xl font-bold">On-demand images for any product, on any marketplace</h3>
+            <p class="text-sm sm:text-base text-slate-300 mt-1">Need a public ISV listing or a private customer-scoped build? AASCLOUD handles packaging, certification, and publishing.</p>
+          </div>
+          <button onclick="openRequestModal('Start On-Demand Marketplace Build')" class="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl btn-primary text-white font-extrabold text-sm cursor-pointer">
+            <span>Start a build</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 6. WHAT WE HANDLE SECTION ==================== -->
+    <section id="pipeline" class="py-16 sm:py-24 border-b border-red-500/20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-wider text-red-400">End-to-End Engineering</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+            The whole publishing pipeline, not just the build
+          </h2>
+          <p class="text-base text-slate-300 leading-relaxed">
+            Publishing across three hyperscalers requires passing strict automated certification scanners, kernel security checks, and billing API validations. AASCLOUD's automated build pipelines manage every layer.
+          </p>
+        </div>
+
+        <!-- 6-Card Feature Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="clean-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/35 text-red-400 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Every image format each cloud accepts</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Native Azure VHDs (Gen1 &amp; Gen2, Trusted Launch), AWS AMIs (x86_64 &amp; ARM64 Graviton), and Google Cloud Shielded VM images built from deterministic Packer templates.
+            </p>
+          </div>
+
+          <div class="clean-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/35 text-red-400 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">GPU and accelerator images</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Pre-validated NVIDIA datacenter drivers, CUDA toolkits, cuDNN, TensorRT, and PyTorch/vLLM framework versions pinned to prevent driver drift on A100, H100, and L40S instances.
+            </p>
+          </div>
+
+          <div class="clean-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/35 text-red-400 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Hardened &amp; benchmarked builds</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              CIS Level 1 &amp; Level 2 security profiles, enforcing SELinux/AppArmor policies, SSH lockdown, and automated pre-publish vulnerability scans via OpenSCAP &amp; Trivy.
+            </p>
+          </div>
+
+          <div class="clean-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/35 text-red-400 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Containers &amp; Kubernetes apps</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Signed OCI container images, Helm charts, Azure Managed Applications, and EKS/GKE/AKS marketplace cluster bundles ready for single-click enterprise deployment.
+            </p>
+          </div>
+
+          <div class="clean-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/35 text-red-400 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Metering &amp; billing integration</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Full integration with Azure SaaS Fulfillment APIs, AWS Marketplace Metering Service, and Google Cloud Procurement APIs for custom usage dimensions and entitlement checks.
+            </p>
+          </div>
+
+          <div class="clean-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/35 text-red-400 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Multi-region, multi-tenant rollout</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Automated regional replication across commercial and sovereign clouds, per-geography tax/compliance rules, and multi-tenant Partner Center / Seller Portal orchestration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 7. HOW IT WORKS SECTION ==================== -->
+    <section id="how-it-works" class="py-16 sm:py-24 border-b border-red-500/20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-wider text-red-400">Delivery Workflow</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+            From requirement to live listing
+          </h2>
+          <p class="text-base text-slate-300">
+            A predictable four-stage release workflow engineered by AASCLOUD to take custom workloads from specification to certified cloud marketplace availability in days, not quarters.
+          </p>
+        </div>
+
+        <!-- 4-Step Timeline -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="clean-card relative rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-red-500/15 text-red-400 border border-red-500/35">01</span>
+              <span class="hidden lg:block h-px flex-1 bg-red-500/25 ml-3"></span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Scope &amp; requirements</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Define target clouds (Azure, AWS, GCP), base OS distro, runtime dependencies, hardware/GPU profiles, hardening level, and public vs. private offer structure.
+            </p>
+          </div>
+
+          <div class="clean-card relative rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-red-500/15 text-red-400 border border-red-500/35">02</span>
+              <span class="hidden lg:block h-px flex-1 bg-red-500/25 ml-3"></span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Build &amp; harden</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Automated CI pipelines compile the image, configure cloud-init/Sysprep, apply CIS benchmarks, strip build artifacts, and run OpenSCAP &amp; Trivy CVE audits.
+            </p>
+          </div>
+
+          <div class="clean-card relative rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-red-500/15 text-red-400 border border-red-500/35">03</span>
+              <span class="hidden lg:block h-px flex-1 bg-red-500/25 ml-3"></span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Certify &amp; publish</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              We submit to Partner Center, AWS Marketplace Management Portal, or GCP Producer Portal, clear all hyperscaler security gates, and push live across regions.
+            </p>
+          </div>
+
+          <div class="clean-card relative rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/35">04</span>
+              <span class="font-mono text-[11px] text-emerald-400 font-semibold">CONTINUOUS</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Maintain &amp; re-publish</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Scheduled OS kernel patches, upstream application version bumps, and zero-day CVE rebuilds are automatically validated and rolled out to keep listings compliant.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 8. INTERACTIVE FAQ ACCORDION ==================== -->
+    <section id="faq" class="py-16 sm:py-24 border-b border-red-500/20 relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-wider text-red-400">Frequently Asked Questions</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-3">
+            Questions we get before every engagement
+          </h2>
+          <p class="text-base text-slate-300">
+            Everything you need to know about image ownership, certification timelines, security hardening, and private offers with AASCLOUD.
+          </p>
+        </div>
+
+        <div class="space-y-3" id="faqAccordion">
+          <!-- FAQ 1 -->
+          <div class="faq-item clean-panel rounded-2xl overflow-hidden" data-open="true">
+            <button type="button" onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-red-500/10 transition-colors cursor-pointer">
+              <span class="font-bold text-white text-base">1. Can you publish under our own Azure Partner Center, AWS Seller, or GCP Producer account?</span>
+              <svg class="faq-icon w-5 h-5 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-inner">
+                <div class="px-6 pb-5 text-sm sm:text-base text-slate-300 leading-relaxed border-t border-white/10 pt-3.5">
+                  Yes. AASCLOUD operates in two modes: we can publish directly under your own ISV/publisher seller accounts (so revenue, customer relationships, and co-sell benefits flow directly to you), or we can host and publish under AASCLOUD's verified publisher catalog for rapid internal or customer-specific rollout.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item clean-panel rounded-2xl overflow-hidden" data-open="false">
+            <button type="button" onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-red-500/10 transition-colors cursor-pointer">
+              <span class="font-bold text-white text-base">2. How long does it take to build, certify, and publish a new VM image?</span>
+              <svg class="faq-icon w-5 h-5 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-inner">
+                <div class="px-6 pb-5 text-sm sm:text-base text-slate-300 leading-relaxed border-t border-white/10 pt-3.5">
+                  Image engineering, hardening, and automated scanner verification typically take <strong class="text-white">2 to 4 business days</strong>. Cloud marketplace certification review generally adds 2–5 business days on AWS/GCP and 3–7 business days on Azure, depending on whether paid SaaS/VM metering is attached.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item clean-panel rounded-2xl overflow-hidden" data-open="false">
+            <button type="button" onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-red-500/10 transition-colors cursor-pointer">
+              <span class="font-bold text-white text-base">3. What security standards and vulnerability scanners do your images pass?</span>
+              <svg class="faq-icon w-5 h-5 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-inner">
+                <div class="px-6 pb-5 text-sm sm:text-base text-slate-300 leading-relaxed border-t border-white/10 pt-3.5">
+                  Every AASCLOUD image is scanned against zero-critical/high CVE thresholds using Trivy, Grype, and cloud-native certification tools (Azure VM Image Builder / Certification Test Tool, AWS AMI Scanner). On request, we apply full CIS Level 1 or Level 2 benchmarks with OpenSCAP compliance reports attached.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item clean-panel rounded-2xl overflow-hidden" data-open="false">
+            <button type="button" onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-red-500/10 transition-colors cursor-pointer">
+              <span class="font-bold text-white text-base">4. Do you support ARM64 (AWS Graviton, Azure Ampere) as well as x86_64?</span>
+              <svg class="faq-icon w-5 h-5 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-inner">
+                <div class="px-6 pb-5 text-sm sm:text-base text-slate-300 leading-relaxed border-t border-white/10 pt-3.5">
+                  Yes. We build multi-architecture pipelines supporting both x86_64 (Intel/AMD) and ARM64 (AWS Graviton2/3/4, Azure Cobalt/Ampere Altra, and Google Cloud Tau T2A) with architecture-matched binaries and kernel modules.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item clean-panel rounded-2xl overflow-hidden" data-open="false">
+            <button type="button" onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-red-500/10 transition-colors cursor-pointer">
+              <span class="font-bold text-white text-base">5. How do private offers help enterprise buyers use their cloud commit?</span>
+              <svg class="faq-icon w-5 h-5 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-inner">
+                <div class="px-6 pb-5 text-sm sm:text-base text-slate-300 leading-relaxed border-t border-white/10 pt-3.5">
+                  When an enterprise purchases a Private Offer through Azure, AWS, or Google Cloud Marketplace, the software spend draws down directly against their existing Microsoft Azure Consumption Commitment (MACC), AWS Enterprise Discount Program (EDP), or Google Cloud Committed Use Discount (CUD) — accelerating legal and procurement sign-off.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 9. BOTTOM CONVERSION BANNER ==================== -->
+    <section id="contact-cta" class="py-16 sm:py-20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="clean-panel rounded-3xl p-8 sm:p-12 lg:p-16 border-red-500/40 bg-gradient-to-br from-[#230b12] via-[#120c15] to-[#1d0b14] relative overflow-hidden">
+          <div class="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-red-600/20 blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-rose-700/20 blur-3xl pointer-events-none"></div>
+          <div class="relative max-w-3xl">
+            <span class="font-mono text-xs font-semibold uppercase tracking-widest text-red-400">Ready to ship to cloud marketplaces?</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mt-3 mb-4">
+              Tell us the product. We'll handle the marketplace.
+            </h2>
+            <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8">
+              Whether you need a single hardened image for an upcoming enterprise tender or a multi-cloud catalog of 50+ SKUs, AASCLOUD's engineering team will scope and launch it end-to-end.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+              <button onclick="openRequestModal('Talk to AASCLOUD Marketplace Team')" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl btn-primary text-white font-bold text-sm sm:text-base cursor-pointer">
+                <span>Talk to our marketplace team</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+              </button>
+              <a href="index.html" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl btn-secondary font-bold text-sm sm:text-base">
+                <span>&larr; Return to Home Page</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== ENTERPRISE 4-COLUMN DARK FOOTER ==================== -->
+  <footer class="relative z-10 bg-[#040306] text-slate-400 border-t border-red-500/25">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-red-500/20">
+        <!-- Col 1: AASCLOUD Brand Summary -->
+        <div>
+          <a href="index.html" class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-500 to-red-800 flex items-center justify-center text-white font-extrabold">
+              A
+            </div>
+            <span class="font-extrabold tracking-tight text-white text-lg">AAS<strong class="text-red-500">Cloud</strong></span>
+          </a>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">
+            Cloud infrastructure engineering, hardened VM image publishing, and multi-cloud marketplace enablement across Microsoft Azure, AWS, and Google Cloud.
+          </p>
+          <span class="inline-flex items-center gap-2 font-mono text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            3,500+ Live Marketplace SKUs
+          </span>
+        </div>
+
+        <!-- Col 2: Company -->
+        <div>
+          <h4 class="text-xs font-mono font-semibold uppercase tracking-wider text-white mb-4">Company</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="index.html" class="hover:text-red-400 transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-red-400 transition-colors">About AASCLOUD</a></li>
+            <li><a href="services.html" class="hover:text-red-400 transition-colors">Cloud &amp; AI Services</a></li>
+            <li><a href="banking.html" class="hover:text-red-400 transition-colors">Banking &amp; FinTech</a></li>
+            <li><a href="contact.html" class="hover:text-red-400 transition-colors">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Services -->
+        <div>
+          <h4 class="text-xs font-mono font-semibold uppercase tracking-wider text-white mb-4">Services</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="marketplace.html" class="text-white font-semibold hover:text-red-400 transition-colors">Cloud Marketplace Catalog</a></li>
+            <li><a href="#distributions" class="hover:text-red-400 transition-colors">Hardened Linux &amp; Windows VMs</a></li>
+            <li><a href="#pipeline" class="hover:text-red-400 transition-colors">CIS Level 1 &amp; 2 Image Builds</a></li>
+            <li><a href="#pipeline" class="hover:text-red-400 transition-colors">Kubernetes &amp; Helm Offers</a></li>
+            <li><a href="#offers" class="hover:text-red-400 transition-colors">Private Offers &amp; Metering</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Get in touch -->
+        <div>
+          <h4 class="text-xs font-mono font-semibold uppercase tracking-wider text-white mb-4">Get in touch</h4>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+              <a href="tel:+91-8090567415" class="hover:text-white transition-colors font-mono text-xs sm:text-sm">+91-8090567415</a>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3"/></svg>
+              <span>Serving clients worldwide</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>&copy; 2026 AASCLOUD. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="index.html" class="hover:text-slate-300 transition-colors">Home</a>
+          <a href="#faq" class="hover:text-slate-300 transition-colors">Security &amp; Compliance</a>
+          <button onclick="openRequestModal('Support Inquiry')" class="hover:text-slate-300 transition-colors cursor-pointer">Support</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL 1: PRODUCT DETAIL & DEPLOY MODAL ==================== -->
+  <div id="productModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modalProductTitle" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+      <div onclick="closeProductModal()" class="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"></div>
+
+      <div class="relative inline-block align-bottom bg-[#120f17] rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl w-full border border-red-500/35">
+        <div class="px-6 py-5 bg-[#191320] border-b border-red-500/25 flex items-start justify-between gap-4">
+          <div>
+            <span id="modalProductCategory" class="inline-block font-mono text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-red-500/15 text-red-400 border border-red-500/35 mb-2">
+              Category
+            </span>
+            <h3 id="modalProductTitle" class="text-xl sm:text-2xl font-extrabold text-white">Product Title</h3>
+          </div>
+          <button onclick="closeProductModal()" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-red-500/20 transition-colors cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="px-6 py-6 space-y-6">
+          <p id="modalProductDesc" class="text-sm sm:text-base text-slate-300 leading-relaxed"></p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="p-3.5 rounded-xl bg-white/[0.03] border border-red-500/20">
+              <span class="block font-mono text-[11px] uppercase text-slate-400">Security &amp; Compliance</span>
+              <span class="text-sm font-semibold text-white mt-0.5 block">CIS Level 1 Hardened &bull; Trivy Verified</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/[0.03] border border-red-500/20">
+              <span class="block font-mono text-[11px] uppercase text-slate-400">Provisioning &amp; Architecture</span>
+              <span id="modalProductArch" class="text-sm font-semibold text-white mt-0.5 block">x86_64 &amp; ARM64 &bull; cloud-init Ready</span>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Supported Base Distributions</h4>
+            <div id="modalProductDistros" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <div>
+            <h4 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Published Cloud Marketplaces</h4>
+            <div id="modalProductClouds" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+          </div>
+        </div>
+
+        <div class="px-6 py-4 bg-[#191320] border-t border-red-500/25 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span class="text-xs font-mono text-slate-400">AASCLOUD Verified Public PAYG or Private Offer</span>
+          <div class="flex items-center gap-2.5 w-full sm:w-auto">
+            <button onclick="closeProductModal()" class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl btn-secondary text-sm font-bold cursor-pointer">
+              Close
+            </button>
+            <button id="modalRequestOfferBtn" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl btn-primary text-white text-sm font-bold cursor-pointer">
+              Request Private Offer / Deploy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: REQUEST CUSTOM IMAGE / PRIVATE OFFER MODAL ==================== -->
+  <div id="requestModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="requestModalTitle" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+      <div onclick="closeRequestModal()" class="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"></div>
+
+      <div class="relative inline-block align-bottom bg-[#120f17] rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-red-500/35">
+        <div class="px-6 py-5 bg-[#191320] border-b border-red-500/25 flex items-center justify-between">
+          <div>
+            <span class="font-mono text-[11px] uppercase tracking-wider text-red-400 font-semibold">AASCLOUD Marketplace Engineering</span>
+            <h3 id="requestModalTitle" class="text-lg sm:text-xl font-bold text-white mt-0.5">Request a Custom Image or Offer</h3>
+          </div>
+          <button onclick="closeRequestModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-red-500/20 transition-colors cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <form id="customRequestForm" onsubmit="submitRequestForm(event)" class="p-6 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Product / Stack Name</label>
+            <input id="reqStackInput" type="text" required placeholder="e.g. Hardened Ubuntu 24.04 + NVIDIA CUDA 12.4" class="w-full px-3.5 py-2.5 rounded-xl border border-red-500/25 bg-[#09080c] text-sm text-white placeholder-slate-500 focus:outline-none focus:border-red-500" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Company / Organization</label>
+              <input id="reqCompanyInput" type="text" required placeholder="Your Company Name" class="w-full px-3.5 py-2.5 rounded-xl border border-red-500/25 bg-[#09080c] text-sm text-white placeholder-slate-500 focus:outline-none focus:border-red-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Offer Type</label>
+              <select id="reqOfferType" class="w-full px-3.5 py-2.5 rounded-xl border border-red-500/25 bg-[#09080c] text-sm text-white focus:outline-none focus:border-red-500">
+                <option value="Dedicated Private Offer">Dedicated Private Offer</option>
+                <option value="Public Marketplace Listing">Public Marketplace Listing</option>
+                <option value="Custom Golden Image (CIS Hardened)">Custom Golden Image (CIS)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Target Clouds</label>
+            <div class="flex flex-wrap gap-4 text-sm text-slate-200">
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked class="rounded border-red-500/40 accent-red-600" /> Azure
+              </label>
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked class="rounded border-red-500/40 accent-red-600" /> AWS
+              </label>
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked class="rounded border-red-500/40 accent-red-600" /> Google Cloud
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Technical Notes / Hardening Requirements</label>
+            <textarea id="reqNotesInput" rows="3" placeholder="Specify OS version, CIS Level 1/2, GPU drivers, or tenant ID requirements..." class="w-full px-3.5 py-2.5 rounded-xl border border-red-500/25 bg-[#09080c] text-sm text-white placeholder-slate-500 focus:outline-none focus:border-red-500"></textarea>
+          </div>
+
+          <div id="requestSuccessToast" class="hidden rounded-xl bg-emerald-500/15 border border-emerald-500/35 p-3.5 text-xs sm:text-sm text-emerald-300 font-medium">
+            Request received! AASCLOUD's marketplace engineering team has logged your build specification.
+          </div>
+
+          <div class="pt-2 flex items-center justify-end gap-2.5">
+            <button type="button" onclick="closeRequestModal()" class="px-4 py-2.5 rounded-xl btn-secondary text-sm font-bold cursor-pointer">
+              Cancel
+            </button>
+            <button type="submit" class="px-5 py-2.5 rounded-xl btn-primary text-white text-sm font-bold cursor-pointer">
+              Submit Build Request
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT CATALOG APPLICATION ==================== -->
+  <script>
+    const CATEGORIES = [
+      { name: 'All categories', count: 1235 },
+      { name: 'Operating Systems', count: 16 },
+      { name: 'Databases', count: 76 },
+      { name: 'Web & CMS', count: 174 },
+      { name: 'DevOps', count: 70 },
+      { name: 'Developer Tools', count: 147 },
+      { name: 'AI & Machine Learning', count: 247 },
+      { name: 'Analytics & Big Data', count: 51 },
+      { name: 'Monitoring & Diagnostics', count: 49 },
+      { name: 'Security', count: 82 },
+      { name: 'Networking', count: 47 },
+      { name: 'Infrastructure Services', count: 45 },
+      { name: 'Storage & Backup', count: 35 },
+      { name: 'Integration & Messaging', count: 31 },
+      { name: 'Business Applications', count: 49 },
+      { name: 'Productivity & Collaboration', count: 71 },
+      { name: 'Media & Streaming', count: 45 }
+    ];
+
+    const PRODUCTS = [
+      { id: 'dotnet-runtime', name: '.NET', category: 'Developer Tools', description: 'Pre-configured Microsoft .NET 8 LTS runtime environment with systemd service wrappers, Kestrel reverse proxy tuning, and OpenTelemetry hooks.', distros: ['Ubuntu', 'Debian', 'RHEL', 'Windows'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'dotnet-sdk', name: '.NET SDK', category: 'Developer Tools', description: 'Complete .NET 8 & .NET 9 build toolchain with NuGet caching, CLI diagnostics, and CI build runner optimizations for cloud pipelines.', distros: ['Ubuntu', 'Debian', 'AlmaLinux', 'Windows'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: '1panel', name: '1Panel', category: 'Web & CMS', description: 'Modern open-source Linux server operations control panel with containerized website deployment, SSL automation, and firewall management.', distros: ['Ubuntu', 'Debian', 'AlmaLinux', 'Rocky'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: '2fauth', name: '2FAuth', category: 'Security', description: 'Self-hosted web-based two-factor authentication (TOTP/HOTP) vault hardened with TLS 1.3, automated encrypted backups, and NGINX.', distros: ['Ubuntu', 'Debian'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'aapanel', name: 'aaPanel', category: 'Web & CMS', description: 'One-click LAMP/LEMP web hosting control panel with visual resource monitoring, automated cron backups, and WAF security rules.', distros: ['Ubuntu', 'Debian', 'CentOS', 'AlmaLinux'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'abantecart', name: 'AbanteCart', category: 'Business Applications', description: 'Production-tuned PHP & MariaDB e-commerce platform pre-configured with Redis object caching, HTTP/3, and automated Let’s Encrypt SSL.', distros: ['Ubuntu', 'Debian', 'Rocky'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'acme-solver', name: 'ACME Solver', category: 'Security', description: 'Automated DNS-01 and HTTP-01 X.509 certificate issuance and renewal microservice supporting Let’s Encrypt and ZeroSSL.', distros: ['Ubuntu', 'Alpine', 'Debian'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'active-directory-dc', name: 'Active Directory DC', category: 'Infrastructure Services', description: 'Sysprep-generalized Windows Server Domain Controller image pre-staged with AD DS, DNS, and CIS baseline group policy templates.', distros: ['Windows'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'ada-lang', name: 'ADA', category: 'Developer Tools', description: 'High-integrity GNAT Ada compiler toolchain and SPARK formal verification suite for safety-critical aerospace and defense workloads.', distros: ['Ubuntu', 'RHEL', 'Debian'], clouds: ['Azure', 'AWS'] },
+      { id: 'addy-io', name: 'addy.io', category: 'Productivity & Collaboration', description: 'Open-source anonymous email forwarding and alias management server with Postfix, OpenDKIM, SPF/DMARC enforcement, and Redis.', distros: ['Ubuntu', 'Debian'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'adguard-home', name: 'AdGuard Home', category: 'Networking', description: 'Network-wide DNS-over-HTTPS (DoH) and DNS-over-TLS (DoT) resolver blocking telemetry, trackers, and malicious domains at the edge.', distros: ['Ubuntu', 'Debian', 'Alpine'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'adminer', name: 'Adminer', category: 'Databases', description: 'Lightweight multi-engine database administration UI supporting PostgreSQL, MySQL, MariaDB, SQLite, and MS SQL behind TLS auth.', distros: ['Ubuntu', 'Debian', 'Alpine'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'aerospike', name: 'Aerospike', category: 'Databases', description: 'Sub-millisecond real-time NoSQL database tuned for NVMe SSD flash storage, high-throughput ad-tech, and fraud detection workloads.', distros: ['Ubuntu', 'RHEL', 'Rocky', 'AlmaLinux'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'agensgraph', name: 'AgensGraph', category: 'Databases', description: 'Multi-model enterprise graph database built on PostgreSQL supporting ANSI-SQL and openCypher queries in unified transactions.', distros: ['Ubuntu', 'RHEL', 'AlmaLinux'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'ai-app-dev-langchain', name: 'AI App Development with LangChain & LangFlow', category: 'AI & Machine Learning', description: 'GPU-ready RAG & agentic workflow studio pre-loaded with LangChain, LangFlow visual builder, vector DB connectors, and CUDA drivers.', distros: ['Ubuntu', 'Debian'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'ai-fairness-360', name: 'AI Fairness 360', category: 'AI & Machine Learning', description: 'Comprehensive ML bias detection and algorithmic fairness toolkit with JupyterLab notebooks, scikit-learn, and PyTorch pre-installed.', distros: ['Ubuntu'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'ai-bg-remover', name: 'AI Image Background Remover', category: 'Media & Streaming', description: 'REST & batch inference server running ONNX/PyTorch segmentation models for high-throughput e-commerce and media background removal.', distros: ['Ubuntu', 'Debian'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'ai-image-converter', name: 'AI Image Converter', category: 'Media & Streaming', description: 'Automated super-resolution upscaling and next-gen WebP/AVIF transcoding pipeline with GPU acceleration and S3/Blob hooks.', distros: ['Ubuntu', 'Debian'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'ai-dynamic-pricing', name: 'AI-Powered Dynamic Pricing', category: 'Analytics & Big Data', description: 'Real-time elasticity modeling and demand forecasting stack built on FastAPI, LightGBM, PostgreSQL, and Apache Airflow.', distros: ['Ubuntu', 'RHEL'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'aiml-python-jupyter', name: 'AI/ML Development with Python & Jupyter', category: 'AI & Machine Learning', description: 'Enterprise data science workstation image with NVIDIA CUDA, PyTorch, TensorFlow, JupyterHub, and Conda environments pinned.', distros: ['Ubuntu', 'Debian', 'Rocky'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'docker-ce', name: 'Docker CE & Compose Engine', category: 'DevOps', description: 'Hardened container runtime host pre-configured with Docker Engine, Buildx, Compose v2, log rotation, and CIS Docker Benchmark rules.', distros: ['Ubuntu', 'Debian', 'AlmaLinux', 'Rocky', 'openSUSE'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'postgresql-16', name: 'PostgreSQL 16 Enterprise', category: 'Databases', description: 'Performance-tuned PostgreSQL 16 server with pgvector, TimescaleDB, automated WAL archiving, and TLS client certificate authentication.', distros: ['Ubuntu', 'Debian', 'RHEL', 'Rocky', 'AlmaLinux'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'kubernetes-k3s', name: 'Kubernetes (k3s) Lightweight Cluster', category: 'DevOps', description: 'Production-ready CNCF-certified k3s distribution with Cilium/Flannel CNI, Helm controller, and automated etcd snapshot backups.', distros: ['Ubuntu', 'Debian', 'Alpine', 'Rocky'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'grafana-prometheus', name: 'Grafana & Prometheus Observability', category: 'Monitoring & Diagnostics', description: 'Turnkey metrics, alerting, and dashboarding stack pre-wired with Node Exporter, Alertmanager, and long-term TSDB retention.', distros: ['Ubuntu', 'Debian', 'AlmaLinux'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'hardened-ubuntu-cis', name: 'Ubuntu 24.04 LTS — CIS Level 1 Hardened', category: 'Operating Systems', description: 'Official Ubuntu 24.04 LTS baseline hardened to CIS Level 1 Server benchmarks with OpenSCAP audit report and automated unattended upgrades.', distros: ['Ubuntu'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'rabbitmq-cluster', name: 'RabbitMQ High-Throughput Broker', category: 'Integration & Messaging', description: 'Erlang-tuned AMQP 0-9-1 & MQTT message broker with Prometheus metrics plugin, TLS listeners, and quorum queue defaults.', distros: ['Ubuntu', 'Debian', 'RHEL', 'Rocky'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'minio-object-storage', name: 'MinIO S3-Compatible Object Storage', category: 'Storage & Backup', description: 'High-performance distributed S3-compatible object store with erasure coding, IAM policy engine, and KMS encryption support.', distros: ['Ubuntu', 'RHEL', 'Rocky', 'AlmaLinux'], clouds: ['Azure', 'AWS', 'GCP'] },
+      { id: 'kali-cloud-secops', name: 'Kali Linux Cloud Security Lab', category: 'Security', description: 'Authorized penetration testing and cloud posture assessment VM pre-installed with Nmap, Metasploit, Burp tools, and WireGuard VPN.', distros: ['Kali'], clouds: ['Azure', 'AWS', 'GCP'] }
+    ];
+
+    const state = {
+      search: '',
+      cloud: 'ALL',
+      distro: 'ALL',
+      category: 'All categories',
+      sort: 'name-asc',
+      page: 1,
+      perPage: 20
+    };
+
+    function getCloudBadgeHTML(cloud, size = 'sm') {
+      const styles = {
+        Azure: {
+          bg: 'bg-sky-500/15 text-sky-300 border-sky-400/30',
+          dot: 'bg-sky-400',
+          label: size === 'lg' ? 'Azure Marketplace' : 'Azure'
+        },
+        AWS: {
+          bg: 'bg-amber-500/15 text-amber-300 border-amber-400/30',
+          dot: 'bg-amber-400',
+          label: size === 'lg' ? 'AWS Marketplace' : 'AWS'
+        },
+        GCP: {
+          bg: 'bg-emerald-500/15 text-emerald-300 border-emerald-400/30',
+          dot: 'bg-emerald-400',
+          label: size === 'lg' ? 'Google Cloud Marketplace' : 'GCP'
+        }
+      };
+      const s = styles[cloud] || styles.Azure;
+      return `
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border text-[11px] font-semibold ${s.bg}">
+          <span class="w-1.5 h-1.5 rounded-full ${s.dot}"></span>
+          ${s.label}
+        </span>
+      `;
+    }
+
+    function renderCategories() {
+      const pillsContainer = document.getElementById('categoryPillsContainer');
+      const summaryGrid = document.getElementById('categorySummaryGrid');
+
+      pillsContainer.innerHTML = CATEGORIES.map(cat => {
+        const isActive = state.category === cat.name;
+        return `
+          <button
+            onclick="setCategoryFilter('${cat.name.replace(/'/g, "\\'")}')"
+            class="shrink-0 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+              isActive
+                ? 'bg-gradient-to-r from-red-600 to-red-800 text-white border-red-500 shadow-xs'
+                : 'bg-[#09080c] hover:bg-red-500/15 text-slate-300 border-red-500/20'
+            }"
+          >
+            <span>${cat.name}</span>
+            <span class="font-mono text-[11px] px-1.5 py-0.2 rounded-full ${
+              isActive ? 'bg-white/20 text-white' : 'bg-[#18121e] text-slate-400 border border-red-500/20'
+            }">${cat.count}</span>
+          </button>
+        `;
+      }).join('');
+
+      summaryGrid.innerHTML = CATEGORIES.filter(c => c.name !== 'All categories').map(cat => {
+        const isSelected = state.category === cat.name;
+        return `
+          <button
+            onclick="jumpToCategory('${cat.name.replace(/'/g, "\\'")}')"
+            class="clean-card group flex items-center justify-between p-4 rounded-xl text-left cursor-pointer ${
+              isSelected ? 'border-red-500 bg-red-500/15' : ''
+            }"
+          >
+            <span class="text-sm font-semibold text-slate-200 group-hover:text-red-400 transition-colors">${cat.name}</span>
+            <span class="font-mono text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#09080c] border border-red-500/25 text-red-400 group-hover:border-red-500 transition-colors">
+              ${cat.count}
+            </span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function getFilteredProducts() {
+      const q = state.search.trim().toLowerCase();
+
+      let filtered = PRODUCTS.filter(item => {
+        const matchesSearch =
+          !q ||
+          item.name.toLowerCase().includes(q) ||
+          item.description.toLowerCase().includes(q) ||
+          item.category.toLowerCase().includes(q) ||
+          item.distros.some(d => d.toLowerCase().includes(q));
+
+        const matchesCloud = state.cloud === 'ALL' || item.clouds.includes(state.cloud);
+        const matchesDistro = state.distro === 'ALL' || item.distros.includes(state.distro);
+        const matchesCategory = state.category === 'All categories' || item.category === state.category;
+
+        return matchesSearch && matchesCloud && matchesDistro && matchesCategory;
+      });
+
+      filtered.sort((a, b) => {
+        if (state.sort === 'name-desc') return b.name.localeCompare(a.name);
+        if (state.sort === 'category') return a.category.localeCompare(b.category) || a.name.localeCompare(b.name);
+        return a.name.localeCompare(b.name);
+      });
+
+      return filtered;
+    }
+
+    function renderCatalog() {
+      const filtered = getFilteredProducts();
+      const grid = document.getElementById('productGrid');
+      const emptyBox = document.getElementById('emptyStateBox');
+      const counter = document.getElementById('resultsCounter');
+      const paginationBar = document.getElementById('paginationBar');
+      const clearBtn = document.getElementById('clearSearchBtn');
+
+      clearBtn.classList.toggle('hidden', state.search.trim() === '');
+
+      const isDefaultUnfiltered =
+        !state.search.trim() &&
+        state.cloud === 'ALL' &&
+        state.distro === 'ALL' &&
+        state.category === 'All categories';
+
+      const selectedCatObj = CATEGORIES.find(c => c.name === state.category);
+      const representativeTotal = isDefaultUnfiltered
+        ? 1235
+        : (!state.search.trim() && state.cloud === 'ALL' && state.distro === 'ALL' && selectedCatObj)
+          ? selectedCatObj.count
+          : filtered.length;
+
+      const totalPages = Math.max(1, Math.ceil(representativeTotal / state.perPage));
+      if (state.page > totalPages) state.page = 1;
+
+      const startIndex = ((state.page - 1) * state.perPage) % Math.max(1, filtered.length);
+      let pageItems = [];
+      if (filtered.length > 0) {
+        for (let i = 0; i < Math.min(state.perPage, representativeTotal); i++) {
+          pageItems.push(filtered[(startIndex + i) % filtered.length]);
+          if (representativeTotal <= filtered.length && i + 1 >= filtered.length) break;
+        }
+      }
+
+      renderActiveFilterBadges();
+
+      if (filtered.length === 0) {
+        grid.classList.add('hidden');
+        emptyBox.classList.remove('hidden');
+        paginationBar.classList.add('hidden');
+        counter.innerHTML = `Showing <span class="font-semibold text-white">0</span> of <span class="font-semibold text-white">0</span> products`;
+        return;
+      }
+
+      grid.classList.remove('hidden');
+      emptyBox.classList.add('hidden');
+      paginationBar.classList.remove('hidden');
+
+      const rangeStart = (state.page - 1) * state.perPage + 1;
+      const rangeEnd = Math.min(state.page * state.perPage, representativeTotal);
+
+      counter.innerHTML = `Showing <span class="font-semibold text-white">${rangeStart}–${rangeEnd}</span> of <span class="font-semibold text-white">${representativeTotal.toLocaleString()}</span> products`;
+
+      grid.innerHTML = pageItems.map(item => `
+        <article
+          onclick="openProductModal('${item.id}')"
+          class="clean-card group rounded-2xl p-5 flex flex-col justify-between cursor-pointer"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-red-500/15 border border-red-500/30 text-red-400 truncate">
+                ${item.category}
+              </span>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-red-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
+              </svg>
+            </div>
+
+            <h3 class="text-base font-bold text-white group-hover:text-red-400 transition-colors leading-snug mb-2">
+              ${item.name}
+            </h3>
+            <p class="text-xs sm:text-[13px] text-slate-300 leading-relaxed line-clamp-3 mb-4">
+              ${item.description}
+            </p>
+          </div>
+
+          <div class="pt-3.5 border-t border-white/10 space-y-2.5">
+            <div class="flex flex-wrap items-center gap-1">
+              ${item.distros.map(d => `
+                <span class="font-mono text-[10px] font-medium px-2 py-0.5 rounded bg-white/[0.04] border border-white/15 text-slate-300">
+                  ${d}
+                </span>
+              `).join('')}
+            </div>
+
+            <div class="flex flex-wrap items-center gap-1.5">
+              ${item.clouds.map(c => getCloudBadgeHTML(c, 'sm')).join('')}
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      renderPagination(totalPages, representativeTotal);
+    }
+
+    function renderActiveFilterBadges() {
+      const container = document.getElementById('activeFilterBadges');
+      const badges = [];
+
+      if (state.cloud !== 'ALL') {
+        badges.push(`<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-500/15 text-red-300 border border-red-500/35 text-xs font-semibold">Cloud: ${state.cloud} <button onclick="setCloudFilter('ALL')" class="hover:text-white font-bold cursor-pointer">&times;</button></span>`);
+      }
+      if (state.distro !== 'ALL') {
+        badges.push(`<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-500/15 text-red-300 border border-red-500/35 text-xs font-semibold">OS: ${state.distro} <button onclick="setDistroFilter('ALL')" class="hover:text-white font-bold cursor-pointer">&times;</button></span>`);
+      }
+      if (state.category !== 'All categories') {
+        badges.push(`<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-500/15 text-red-300 border border-red-500/35 text-xs font-semibold">${state.category} <button onclick="setCategoryFilter('All categories')" class="hover:text-white font-bold cursor-pointer">&times;</button></span>`);
+      }
+      if (badges.length > 0) {
+        badges.push(`<button onclick="resetAllFilters()" class="text-xs font-semibold text-slate-400 hover:text-white underline ml-1 cursor-pointer">Reset all</button>`);
+      }
+
+      container.innerHTML = badges.join('');
+    }
+
+    function renderPagination(totalPages, representativeTotal) {
+      const controls = document.getElementById('paginationControls');
+      const label = document.getElementById('paginationPageLabel');
+      label.textContent = `Page ${state.page} of ${totalPages} (${representativeTotal.toLocaleString()} total published offers)`;
+
+      const pages = [];
+      if (totalPages <= 6) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        if (state.page <= 3) {
+          pages.push(1, 2, 3, 4, '...', totalPages);
+        } else if (state.page >= totalPages - 2) {
+          pages.push(1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+        } else {
+          pages.push(1, '...', state.page - 1, state.page, state.page + 1, '...', totalPages);
+        }
+      }
+
+      let html = `
+        <button
+          onclick="goToPage(${state.page - 1})"
+          ${state.page === 1 ? 'disabled' : ''}
+          class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+            state.page === 1 ? 'text-slate-600 cursor-not-allowed' : 'text-slate-300 hover:bg-red-500/15 cursor-pointer'
+          }"
+        >
+          Previous
+        </button>
+      `;
+
+      pages.forEach(p => {
+        if (p === '...') {
+          html += `<span class="px-2 py-1 text-xs font-mono text-slate-500">…</span>`;
+        } else {
+          const active = p === state.page;
+          html += `
+            <button
+              onclick="goToPage(${p})"
+              class="min-w-[32px] px-2.5 py-1.5 rounded-lg font-mono text-xs font-bold transition-colors cursor-pointer ${
+                active ? 'bg-gradient-to-r from-red-600 to-red-800 text-white shadow-xs' : 'text-slate-300 hover:bg-red-500/15'
+              }"
+            >
+              ${p}
+            </button>
+          `;
+        }
+      });
+
+      html += `
+        <button
+          onclick="goToPage(${state.page + 1})"
+          ${state.page === totalPages ? 'disabled' : ''}
+          class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+            state.page === totalPages ? 'text-slate-600 cursor-not-allowed' : 'text-slate-300 hover:bg-red-500/15 cursor-pointer'
+          }"
+        >
+          Next
+        </button>
+      `;
+
+      controls.innerHTML = html;
+    }
+
+    function setCloudFilter(cloud) {
+      state.cloud = cloud;
+      state.page = 1;
+      document.querySelectorAll('.cloud-pill').forEach(btn => {
+        const isMatch = btn.dataset.cloud === cloud;
+        btn.className = isMatch
+          ? 'cloud-pill active px-3 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-red-600 to-red-800 text-white shadow-xs transition-all cursor-pointer'
+          : 'cloud-pill px-3 py-2 rounded-lg text-xs font-semibold bg-[#09080c] text-slate-300 hover:text-red-400 border border-red-500/25 transition-all cursor-pointer';
+      });
+      renderCatalog();
+    }
+
+    function setDistroFilter(distro) {
+      state.distro = distro;
+      state.page = 1;
+      document.getElementById('distroSelect').value = distro;
+      renderCatalog();
+    }
+
+    function setCategoryFilter(category) {
+      state.category = category;
+      state.page = 1;
+      renderCategories();
+      renderCatalog();
+    }
+
+    function setSortOrder(sortVal) {
+      state.sort = sortVal;
+      renderCatalog();
+    }
+
+    function goToPage(pageNum) {
+      if (pageNum < 1) return;
+      state.page = pageNum;
+      renderCatalog();
+      document.getElementById('catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function clearSearch() {
+      state.search = '';
+      state.page = 1;
+      document.getElementById('catalogSearchInput').value = '';
+      renderCatalog();
+    }
+
+    function resetAllFilters() {
+      state.search = '';
+      state.cloud = 'ALL';
+      state.distro = 'ALL';
+      state.category = 'All categories';
+      state.page = 1;
+      document.getElementById('catalogSearchInput').value = '';
+      document.getElementById('distroSelect').value = 'ALL';
+      setCloudFilter('ALL');
+      renderCategories();
+      renderCatalog();
+    }
+
+    function quickFilterCloud(cloud) {
+      setCloudFilter(cloud);
+      document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function quickFilterDistro(distro) {
+      setDistroFilter(distro);
+      document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function jumpToCategory(category) {
+      setCategoryFilter(category);
+      document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openProductModal(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      document.getElementById('modalProductCategory').textContent = product.category;
+      document.getElementById('modalProductTitle').textContent = product.name;
+      document.getElementById('modalProductDesc').textContent = product.description;
+
+      document.getElementById('modalProductDistros').innerHTML = product.distros.map(d => `
+        <span class="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.04] text-slate-200 border border-white/15">
+          ${d}
+        </span>
+      `).join('');
+
+      document.getElementById('modalProductClouds').innerHTML = product.clouds.map(c => {
+        const names = {
+          Azure: 'Microsoft Azure',
+          AWS: 'Amazon Web Services',
+          GCP: 'Google Cloud Platform'
+        };
+        return `
+          <div class="p-3 rounded-xl border border-red-500/25 bg-white/[0.03] flex flex-col justify-between gap-2">
+            ${getCloudBadgeHTML(c, 'lg')}
+            <span class="text-[11px] font-mono text-slate-400">${names[c]} &bull; Certified</span>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('modalRequestOfferBtn').onclick = () => {
+        closeProductModal();
+        openRequestModal(`${product.name} (${product.category})`);
+      };
+
+      document.getElementById('productModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function openRequestModal(prefillSubject = '') {
+      document.getElementById('reqStackInput').value = prefillSubject;
+      document.getElementById('requestSuccessToast').classList.add('hidden');
+      document.getElementById('requestModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeRequestModal() {
+      document.getElementById('requestModal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function submitRequestForm(event) {
+      event.preventDefault();
+      const toast = document.getElementById('requestSuccessToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        closeRequestModal();
+        document.getElementById('customRequestForm').reset();
+      }, 1800);
+    }
+
+    function toggleFaq(buttonEl) {
+      const item = buttonEl.closest('.faq-item');
+      const isOpen = item.getAttribute('data-open') === 'true';
+      item.setAttribute('data-open', isOpen ? 'false' : 'true');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      document.getElementById('shortcutBadge').textContent = isMac ? '⌘K' : 'Ctrl+K';
+
+      const searchInput = document.getElementById('catalogSearchInput');
+      searchInput.addEventListener('input', (e) => {
+        state.search = e.target.value;
+        state.page = 1;
+        renderCatalog();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          searchInput.focus();
+          searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (e.key === 'Escape') {
+          closeProductModal();
+          closeRequestModal();
+        }
+      });
+
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIconOpen = document.getElementById('menuIconOpen');
+      const menuIconClose = document.getElementById('menuIconClose');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        menuIconOpen.classList.toggle('hidden', !isHidden);
+        menuIconClose.classList.toggle('hidden', isHidden);
+      });
+
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuIconOpen.classList.remove('hidden');
+          menuIconClose.classList.add('hidden');
+        });
+      });
+
+      renderCategories();
+      renderCatalog();
+    });
+  </script>
+</body>
+</html>

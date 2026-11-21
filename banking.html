@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="VaultEdge blog — expert investment tips, market analysis, and wealth management guides.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Financial Banking Insights — AASCloud</title>
+    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/custom-override.css">
+</head>
+<body>
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </div>
+    <header class="ve-header" id="ve-sticky">
+        <div class="container-fluid ve-nav-wrap">
+            <div class="ve-logo"><a href="index.html"><span class="ve-logo-icon">V</span><span class="ve-logo-text">AAS<strong>Cloud</strong></span></a></div>
+            <nav class="ve-nav"><ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="has-drop"><a href="about.html">About <i class="fa fa-angle-down"></i></a>
+                    <ul class="ve-dropdown"><li><a href="about.html">About Us</a></li><li><a href="services.html">Our Services</a></li><li><a href="elements.html">UI Elements</a></li></ul>
+                </li>
+                <li><a href="services.html">Services</a></li>
+                <li class="has-drop"><a href="#">Solutions <i class="fa fa-angle-down"></i></a>
+                    <ul class="ve-dropdown"><li><a href="#">Wealth Management</a></li><li><a href="#">Retirement Plans</a></li><li><a href="#">Tax Advisory</a></li><li><a href="#">Risk Analysis</a></li></ul>
+                </li>
+                <li><a href="post.html" class="active">Banking</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul></nav>
+            <div class="ve-nav-cta"><a href="contact.html" class="ve-cta-btn">Get Started <i class="fa fa-arrow-right"></i></a></div>
+            <button class="ve-toggler" id="ve-toggle"><span></span><span></span><span></span></button>
+        </div>
+        <div class="ve-mobile-menu" id="ve-mobile-menu"><ul>
+            <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li><li><a href="#">Solutions</a></li>
+            <li><a href="post.html">Banking</a></li><li><a href="contact.html">Contact</a></li>
+        </ul></div>
+    </header>
+    <section class="ve-page-hero" style="background-image:url(img/bg-img/ba1.jpg);">
+        <!--<div class="ve-page-hero-overlay"></div>
+        <div class="container ve-page-hero-content">
+            <h1>Financial <span>Insights &amp; DSA Partners</h1>-->
+            <!--<nav aria-label="breadcrumb"><ol class="ve-breadcrumb"><li><a href="index.html">Home</a></li><li class="active">Insights</li></ol></nav>-->
+        </div>
+    </section>
+<div class="ve-page-hero-overlay"></div>
+<div class="container ve-page-hero-content" style="text-align:center;">
+    <h1>Financial <span>Insights &amp; DSA Partners</span></h1>
+</div>
+<section class="partner-section">
+    <div class="partner-heading">
+        <span>OUR FINANCIAL NETWORK</span>
+        <h2>Our Trusted Financial Partners</h2>
+        <p>Connecting you with trusted banking and financial institutions.</p>
+    </div>
+
+    <div class="partner-slider">
+        <div class="partner-track">
+            <span>HDFC BANK</span>
+            <span>ICICI BANK</span>
+            <span>AXIS BANK</span>
+            <span>KOTAK MAHINDRA</span>
+            <span>INDUSIND BANK</span>
+            <span>IDFC FIRST BANK</span>
+            <span>YES BANK</span>
+            <span>FEDERAL BANK</span>
+            <span>MONEYVIEW</span>
+            <span>KREDITBEE</span>
+            <span>FIBE</span>
+            <span>NAVI</span>
+            <span>BAJAJ FINSERV</span>
+            <span>TATA CAPITAL</span>
+            <span>L&T FINANCE</span>
+            <span>MUTHOOT FINANCE</span>
+
+            <!-- Duplicate for continuous scrolling -->
+            <span>HDFC BANK</span>
+            <span>ICICI BANK</span>
+            <span>AXIS BANK</span>
+            <span>KOTAK MAHINDRA</span>
+            <span>INDUSIND BANK</span>
+            <span>IDFC FIRST BANK</span>
+            <span>YES BANK</span>
+            <span>FEDERAL BANK</span>
+            <span>MONEYVIEW</span>
+            <span>KREDITBEE</span>
+            <span>FIBE</span>
+            <span>NAVI</span>
+            <span>BAJAJ FINSERV</span>
+            <span>TATA CAPITAL</span>
+            <span>L&T FINANCE</span>
+            <span>MUTHOOT FINANCE</span>
+        </div>
+    </div>
+</section>
+
+<style>
+.partner-section {
+    padding: 65px 0;
+    background: #071426;
+    overflow: hidden;
+    text-align: center;
+}
+
+.partner-heading span {
+    color: #39aaff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.partner-heading h2 {
+    color: #fff;
+    font-size: 32px;
+    margin: 12px 0;
+    font-weight: 700;
+}
+
+.partner-heading p {
+    color: #aab9ca;
+    font-size: 15px;
+    margin-bottom: 35px;
+}
+
+.partner-slider {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 15px 0;
+}
+
+.partner-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 22px;
+    animation: partnerMove 40s linear infinite;
+}
+
+.partner-track span {
+    color: #eaf4ff;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(65,165,255,0.25);
+    border-radius: 8px;
+    padding: 17px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    transition: all .3s ease;
+}
+
+.partner-track span:hover {
+    background: rgba(35,145,255,0.2);
+    border-color: #39aaff;
+    color: #55bdff;
+    transform: translateY(-4px);
+}
+
+.partner-slider:hover .partner-track {
+    animation-play-state: paused;
+}
+
+@keyframes partnerMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@media(max-width: 600px) {
+    .partner-heading h2 {
+        font-size: 24px;
+    }
+
+    .partner-track span {
+        padding: 13px 20px;
+        font-size: 12px;
+    }
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan EMI Calculator</title>
+
+<style>
+.emi-section *{box-sizing:border-box}
+.emi-section{
+ font-family:Arial,sans-serif;
+ background:#fff;color:#111;
+ padding:30px 15px;
+}
+.emi-container{
+ max-width:1100px;margin:auto;
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:35px;align-items:center;
+}
+.emi-calculator{
+ padding:25px;background:#fff;
+ border:1px solid #ddd;border-radius:10px;
+}
+.emi-calculator h2{
+ text-align:center;margin:0 0 22px;color:#111;
+}
+.emi-tabs{display:flex;gap:10px;margin-bottom:22px}
+.emi-tabs button{
+ flex:1;padding:12px;background:#fff;
+ color:#111;border:1px solid #ccc;
+ border-radius:6px;font-weight:bold;cursor:pointer;
+}
+.emi-tabs button.active{
+ background:#2457d6;color:#fff;border-color:#2457d6;
+}
+.emi-field{margin-bottom:20px}
+.emi-field label{
+ display:block;font-weight:bold;margin-bottom:9px;
+}
+.emi-field input[type=number]{
+ width:100%;padding:11px;
+ border:1px solid #ccc;border-radius:6px;
+ background:#fff;color:#000;font-size:15px;
+}
+.emi-field input[type=range]{
+ width:100%;margin-top:12px;
+ accent-color:#2457d6;cursor:pointer;
+}
+.emi-result{
+ border:1px solid #ddd;border-radius:8px;
+ padding:18px;margin-top:20px;background:#fff;
+}
+.emi-result h3{margin:0;color:#111;font-size:17px}
+.emi-value{
+ color:#2457d6;font-size:29px;
+ font-weight:bold;margin:12px 0 18px;
+}
+.emi-row{
+ display:flex;justify-content:space-between;
+ gap:10px;padding:12px 0;
+ border-bottom:1px solid #eee;font-size:14px;
+}
+.emi-row:last-child{border:0}
+.emi-row strong{color:#000}
+.emi-bank-image img{
+ display:block;width:100%;height:auto;
+ max-height:450px;object-fit:contain;
+ border-radius:10px;
+}
+.emi-placeholder{
+ display:none;min-height:300px;
+ border:2px dashed #ccc;border-radius:10px;
+ align-items:center;justify-content:center;
+ color:#777;text-align:center;
+}
+@media(max-width:750px){
+ .emi-container{grid-template-columns:1fr}
+ .emi-section{padding:15px 10px}
+ .emi-calculator{padding:18px}
+}
+</style>
+</head>
+
+<body>
+
+<section class="emi-section">
+<div class="emi-container">
+
+<!-- LEFT SIDE: CALCULATOR -->
+<div class="emi-calculator">
+
+<h2>Loan EMI Calculator</h2>
+
+<div class="emi-tabs">
+<button type="button" id="personalBtn"
+class="active" onclick="changeLoan('personal')">
+Personal Loan
+</button>
+
+<button type="button" id="homeBtn"
+onclick="changeLoan('home')">
+Home Loan
+</button>
+</div>
+
+<div class="emi-field">
+<label for="loanAmount">Loan Amount (₹)</label>
+<input type="number" id="loanAmount" value="500000"
+min="10000" max="5000000">
+<input type="range" id="amountRange"
+min="10000" max="5000000" step="10000" value="500000">
+</div>
+
+<div class="emi-field">
+<label for="interestRate">Interest Rate (% Per Year)</label>
+<input type="number" id="interestRate" value="12"
+min="0" max="30" step="0.1">
+<input type="range" id="rateRange"
+min="0" max="30" step="0.1" value="12">
+</div>
+
+<div class="emi-field">
+<label for="loanTenure">Loan Tenure (Years)</label>
+<input type="number" id="loanTenure" value="5"
+min="1" max="7">
+<input type="range" id="tenureRange"
+min="1" max="7" value="5">
+</div>
+
+<div class="emi-result">
+<h3>Monthly EMI</h3>
+<div class="emi-value" id="monthlyEMI">₹11,122</div>
+
+<div class="emi-row">
+<span>Principal Amount</span>
+<strong id="principal">₹5,00,000</strong>
+</div>
+
+<div class="emi-row">
+<span>Total Interest</span>
+<strong id="interest">₹1,67,323</strong>
+</div>
+
+<div class="emi-row">
+<span>Total Payment</span>
+<strong id="totalPayment">₹6,67,323</strong>
+</div>
+</div>
+
+</div>
+
+<!-- RIGHT SIDE: BANK IMAGE -->
+<div class="emi-bank-image">
+
+<img src="img/bg-img/ba3.avif"
+alt="Bank Loan Services">
+onerror="this.style.display='none';
+document.getElementById('imagePlaceholder').style.display='flex';">
+
+<div class="emi-placeholder" id="imagePlaceholder">
+Add Your Bank Image Here
+</div>
+
+</div>
+
+</div>
+</section>
+
+<script>
+(function(){
+
+const $ = id => document.getElementById(id);
+
+const presets = {
+ personal:{
+  amount:500000,rate:12,tenure:5,
+  min:10000,max:5000000,years:7
+ },
+ home:{
+  amount:3000000,rate:8.5,tenure:20,
+  min:100000,max:50000000,years:30
+ }
+};
+
+function money(n){
+ return "₹"+Math.round(n).toLocaleString("en-IN");
+}
+
+function calculate(){
+
+ const amount=Number($("loanAmount").value);
+ const rate=Number($("interestRate").value);
+ const years=Number($("loanTenure").value);
+
+ const min=Number($("loanAmount").min);
+ const max=Number($("loanAmount").max);
+ const maxYears=Number($("loanTenure").max);
+
+ if(
+  $("loanAmount").value==="" ||
+  $("interestRate").value==="" ||
+  $("loanTenure").value==="" ||
+  !Number.isFinite(amount) ||
+  !Number.isFinite(rate) ||
+  !Number.isFinite(years) ||
+  amount<min || amount>max ||
+  rate<0 || rate>30 ||
+  years<1 || years>maxYears
+ ){
+  $("monthlyEMI").textContent="Enter valid values";
+  $("principal").textContent="₹0";
+  $("interest").textContent="₹0";
+  $("totalPayment").textContent="₹0";
+  return;
+ }
+
+ const months=years*12;
+ const r=rate/1200;
+
+ const emi=r===0
+  ? amount/months
+  : amount*r*Math.pow(1+r,months)/
+    (Math.pow(1+r,months)-1);
+
+ const total=emi*months;
+
+ $("monthlyEMI").textContent=money(emi);
+ $("principal").textContent=money(amount);
+ $("interest").textContent=money(total-amount);
+ $("totalPayment").textContent=money(total);
+}
+
+function connect(numberId,rangeId){
+
+ $(numberId).addEventListener("input",function(){
+  const value=Number(this.value);
+  const min=Number($(rangeId).min);
+  const max=Number($(rangeId).max);
+
+  if(this.value!==""){
+   $(rangeId).value=Math.min(max,Math.max(min,value));
+  }
+  calculate();
+ });
+
+ $(rangeId).addEventListener("input",function(){
+  $(numberId).value=this.value;
+  calculate();
+ });
+}
+
+window.changeLoan=function(type){
+
+ const p=presets[type];
+
+ $("personalBtn").classList.toggle("active",type==="personal");
+ $("homeBtn").classList.toggle("active",type==="home");
+
+ $("loanAmount").min=$("amountRange").min=p.min;
+ $("loanAmount").max=$("amountRange").max=p.max;
+
+ $("loanTenure").max=$("tenureRange").max=p.years;
+
+ $("loanAmount").value=$("amountRange").value=p.amount;
+ $("interestRate").value=$("rateRange").value=p.rate;
+ $("loanTenure").value=$("tenureRange").value=p.tenure;
+
+ calculate();
+};
+
+connect("loanAmount","amountRange");
+connect("interestRate","rateRange");
+connect("loanTenure","tenureRange");
+
+changeLoan("personal");
+
+})();
+</script>
+
+</body>
+</html>
+
+    <section class="ve-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="row">
+                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay="100ms"><div class="ve-insight-card"><div class="ve-insight-img bg-img" style="background-image:url(img/bg-img/ba5.jpg);"></div><div class="ve-insight-body"><span class="ve-insight-cat">Investment</span><h5><a href="single-post.html">5 Smart Investment Strategies for 2026</a></h5><p>Discover the top strategies seasoned investors use to grow wealth in volatile markets.</p><div class="ve-insight-meta"><span><i class="fa fa-calendar"></i> April 26</span><a href="single-post.html">Read More<i class="fa fa-arrow-right"></i></a></div></div></div></div>
+                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay="200ms"><div class="ve-insight-card"><div class="ve-insight-img bg-img" style="background-image:url(img/bg-img/ba6.jpg);"></div><div class="ve-insight-body"><span class="ve-insight-cat">Credit</span><h5><a href="single-post.html">Understanding Your Credit Score in 2026</a></h5><p>Learn the key factors that influence your credit score and how to improve it fast.</p><div class="ve-insight-meta"><span><i class="fa fa-calendar"></i> April 20</span><a href="single-post.html">Read More <i class="fa fa-arrow-right"></i></a></div></div></div></div>
+                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay="300ms"><div class="ve-insight-card"><div class="ve-insight-img bg-img" style="background-image:url(img/bg-img/ba7.jpg);"></div><div class="ve-insight-body"><span class="ve-insight-cat">Savings</span><h5><a href="single-post.html">Building Wealth in Your 30s — A Full Guide</a></h5><p>The financial habits that set you up for lifelong prosperity.</p><div class="ve-insight-meta"><span><i class="fa fa-calendar"></i> April 14</span><a href="single-post.html">Read More <i class="fa fa-arrow-right"></i></a></div></div></div></div>
+                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay="400ms"><div class="ve-insight-card"><div class="ve-insight-img bg-img" style="background-image:url(img/bg-img/ba8.jpg);"></div><div class="ve-insight-body"><span class="ve-insight-cat">Retirement</span><h5><a href="single-post.html">How to Retire Comfortably at 55</a></h5><p>A step-by-step roadmap to early retirement with financial security intact.</p><div class="ve-insight-meta"><span><i class="fa fa-calendar"></i> April 8</span><a href="single-post.html">Read More <i class="fa fa-arrow-right"></i></a></div></div></div></div>
+                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay="500ms"><div class="ve-insight-card"><div class="ve-insight-img bg-img" style="background-image:url(img/bg-img/ba9.jpg);"></div><div class="ve-insight-body"><span class="ve-insight-cat">Tax</span><h5><a href="single-post.html">Top Tax-Saving Strategies for High Earners</a></h5><p>Legal, proven approaches to minimising your tax bill this year.</p><div class="ve-insight-meta"><span><i class="fa fa-calendar"></i> March 30</span><a href="single-post.html">Read More <i class="fa fa-arrow-right"></i></a></div></div></div></div>
+                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay="600ms"><div class="ve-insight-card"><div class="ve-insight-img bg-img" style="background-image:url(img/bg-img/ba10.jpg);"></div><div class="ve-insight-body"><span class="ve-insight-cat">Markets</span><h5><a href="single-post.html">Navigating Market Volatility With Confidence</a></h5><p>Expert guidance on staying strategic when markets swing wildly.</p><div class="ve-insight-meta"><span><i class="fa fa-calendar"></i> March 22</span><a href="single-post.html">Read More <i class="fa fa-arrow-right"></i></a></div></div></div></div>
+                    </div>
+                    <div class="ve-pagination"><a href="#" class="active">1</a><a href="#">2</a><a href="#">3</a><a href="#"><i class="fa fa-chevron-right"></i></a></div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="ve-sidebar">
+                        <div class="ve-sidebar-widget">
+                            <h5 class="ve-sidebar-title">Search</h5>
+                            <div class="ve-search-box"><input type="text" placeholder="Search articles..."><button><i class="fa fa-search"></i></button></div>
+                        </div>
+                        <div class="ve-sidebar-widget">
+                            <h5 class="ve-sidebar-title">Categories</h5>
+                            <ul class="ve-cat-list">
+                                <li><a href="#">Investment <span>1</span></a></li>
+                                <li><a href="#">Wealth Management <span>2</span></a></li>
+                                <li><a href="#">Retirement <span>3</span></a></li>
+                                <li><a href="#">Tax Advisory <span>4</span></a></li>
+                                <li><a href="#">Market Analysis <span>5</span></a></li>
+                                <li><a href="#">Savings Tips <span>6</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="ve-sidebar-widget">
+                            <h5 class="ve-sidebar-title">Recent Posts</h5>
+                            <div class="ve-recent-post"><div class="ve-rp-img bg-img" style="background-image:url(img/bg-img/10.jpg);"></div><div><a href="single-post.html">5 Smart Investment Strategies for 2025</a><span><i class="fa fa-calendar"></i> April 26</span></div></div>
+                            <div class="ve-recent-post"><div class="ve-rp-img bg-img" style="background-image:url(img/bg-img/11.jpg);"></div><div><a href="single-post.html">Understanding Your Credit Score</a><span><i class="fa fa-calendar"></i> April 20</span></div></div>
+                            <div class="ve-recent-post"><div class="ve-rp-img bg-img" style="background-image:url(img/bg-img/12.jpg);"></div><div><a href="single-post.html">Building Wealth in Your 30s</a><span><i class="fa fa-calendar"></i> April 14</span></div></div>
+                        </div>
+                        <div class="ve-sidebar-widget">
+                            <h5 class="ve-sidebar-title">Popular Tags</h5>
+                            <div class="ve-tags"><a href="#">Investing</a><a href="#">Wealth</a><a href="#">Retirement</a><a href="#">Taxes</a><a href="#">Savings</a><a href="#">Portfolio</a><a href="#">Markets</a><a href="#">Planning</a><a href="#">ETFs</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ve-newsletter-section"><div class="container"><div class="ve-newsletter-wrap">
+        <div class="ve-nl-left"><i class="fa fa-envelope-o"></i><div><h3>Stay Ahead of the Markets</h3><p>Weekly insights — straight to your inbox.</p></div></div>
+        <div class="ve-nl-right"><form class="ve-nl-form" action="#" method="post"><input type="email" placeholder="Enter your email address" required><button type="submit">Subscribe</button></form></div>
+    </div></div></section>
+    <footer class="ve-footer"><div class="container"><div class="row">
+        <div class="col-12 col-sm-6 col-lg-4 mb-50"><div class="ve-footer-brand">
+            <a href="index.html" class="ve-footer-logo"><span class="ve-logo-icon">V</span><span class="ve-logo-text">Vault<strong>Edge</strong></span></a>
+            <p>Empowering individuals and businesses with intelligent financial strategies since 2012.</p>
+            <div class="ve-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+        </div></div>
+        <div class="col-12 col-sm-6 col-lg-2 mb-50"><h5 class="ve-footer-title">Quick Links</h5>
+            <ul class="ve-footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="post.html">Insights</a></li><li><a href="contact.html">Contact</a></li></ul>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3 mb-50"><h5 class="ve-footer-title">Our Services</h5>
+            <ul class="ve-footer-links"><li><a href="#">Investment Planning</a></li><li><a href="#">Wealth Management</a></li><li><a href="#">Retirement Plans</a></li><li><a href="#">Tax Advisory</a></li><li><a href="#">Risk Management</a></li></ul>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3 mb-50"><h5 class="ve-footer-title">Get In Touch</h5>
+            <ul class="ve-footer-contact"><li><i class="fa fa-map-marker"></i> 42 Harbor View, San Francisco, CA</li><li><i class="fa fa-phone"></i> +1 800 555 0199</li><li><i class="fa fa-envelope"></i> hello@aascloud.com</li><li><i class="fa fa-clock-o"></i> Mon–Fri, 9am – 6pm</li></ul>
+        </div>
+    </div></div>
+    <div class="ve-footer-bottom"><div class="container"><div class="ve-footer-bottom-inner">
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> AASCloud. All Rights Reserved <a href="https://github.com/Rabina-Vishwakarma/" class="text-white" target="_blank">Rabina Vishwakarma</a> • Distributed by <a href="https://themewagon.com" class="text-white" target="_blank">ThemeWagon</a></p>
+        <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">Cookie Policy</a></li></ul>
+    </div></div></div></footer>
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/plugins/plugins.js"></script>
+    <script src="js/active.js"></script>
+    <script src="js/vaultedge.js"></script>
+</body></html>

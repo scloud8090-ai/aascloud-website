@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="AASCloud — Enterprise AWS, Azure, Google Cloud, AI Models, Banking & FinTech Solutions, and Cloud Marketplace.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Services, AI Models & Marketplace — AASCloud</title>
+    
+    <!-- External Fonts & Icons (CDN so nothing is missing or blank) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <!-- Keep your existing stylesheets if needed -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/custom-override.css">
+
+    <style>
+        :root {
+            --aas-red: #ff2a2a;
+            --aas-red-dark: #b31217;
+            --aas-red-glow: rgba(255, 42, 42, 0.35);
+            --aas-bg: #07090e;
+            --aas-surface: #0f131c;
+            --aas-surface-hover: #151b28;
+            --aas-border: rgba(255, 42, 42, 0.22);
+            --aas-text: #f1f5f9;
+            --aas-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--aas-bg);
+            color: var(--aas-text);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           ANIMATED RED LINE BACKGROUND SYSTEM
+        ========================================= */
+        .red-matrix-bg {
+            position: relative;
+            background-color: var(--aas-bg);
+            background-image: 
+                linear-gradient(to right, rgba(255, 42, 42, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 42, 42, 0.07) 1px, transparent 1px);
+            background-size: 55px 55px;
+        }
+
+        /* Diagonal Red Laser Lines */
+        .red-matrix-bg::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 160px,
+                rgba(255, 42, 42, 0.09) 161px,
+                rgba(255, 42, 42, 0.09) 162px
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Moving Glowing Horizontal Red Scanline */
+        .red-scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--aas-red), #ff7b7b, var(--aas-red), transparent);
+            box-shadow: 0 0 18px var(--aas-red);
+            opacity: 0.55;
+            animation: scanMove 9s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes scanMove {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        /* =========================================
+           HEADER / NAVBAR (CLEAN & SELF-CONTAINED)
+        ========================================= */
+        .aas-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 9, 14, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--aas-border);
+            padding: 15px 0;
+        }
+
+        .aas-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .aas-brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--aas-red), var(--aas-red-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 0 15px var(--aas-red-glow);
+        }
+
+        .aas-brand span strong {
+            color: var(--aas-red);
+        }
+
+        .aas-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .aas-nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.25s;
+        }
+
+        .aas-nav-links a:hover, .aas-nav-links a.active {
+            color: var(--aas-red);
+        }
+
+        .aas-btn-red {
+            background: linear-gradient(135deg, var(--aas-red), var(--aas-red-dark));
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 18px var(--aas-red-glow);
+            transition: 0.3s ease;
+        }
+
+        .aas-btn-red:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 42, 42, 0.55);
+        }
+
+        /* =========================================
+           HERO SECTION (NO EXTERNAL IMAGE - PURE CSS/SVG)
+        ========================================= */
+        .aas-hero {
+            position: relative;
+            z-index: 2;
+            padding: 100px 0 85px;
+            background: radial-gradient(circle at 50% 20%, rgba(255, 42, 42, 0.18) 0%, rgba(7, 9, 14, 0.95) 65%);
+            border-bottom: 2px solid var(--aas-red);
+            text-align: center;
+        }
+
+        .aas-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 50px;
+            background: rgba(255, 42, 42, 0.12);
+            border: 1px solid var(--aas-red);
+            color: #ff6b6b;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .aas-hero h1 {
+            font-size: clamp(32px, 5vw, 54px);
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.18;
+            margin-bottom: 20px;
+        }
+
+        .aas-hero h1 span {
+            color: var(--aas-red);
+            text-shadow: 0 0 25px rgba(255, 42, 42, 0.4);
+        }
+
+        .aas-hero p {
+            color: var(--aas-muted);
+            font-size: 17px;
+            max-width: 750px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .hero-quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            max-width: 850px;
+            margin: 45px auto 0;
+        }
+
+        .stat-box {
+            background: rgba(15, 19, 28, 0.85);
+            border: 1px solid var(--aas-border);
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .stat-box h3 {
+            color: var(--aas-red);
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .stat-box span {
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        /* =========================================
+           SECTIONS & GLOWING DIVIDERS
+        ========================================= */
+        .aas-section {
+            position: relative;
+            z-index: 2;
+            padding: 85px 0;
+        }
+
+        .red-divider {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--aas-red), transparent);
+            box-shadow: 0 0 15px var(--aas-red-glow);
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 740px;
+            margin: 0 auto 55px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(28px, 3.8vw, 40px);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+
+        .section-heading h2 span {
+            color: var(--aas-red);
+        }
+
+        .section-heading p {
+            color: var(--aas-muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        /* =========================================
+           SERVICE & AI CARDS
+        ========================================= */
+        .aas-card {
+            background: var(--aas-surface);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-top: 3px solid var(--aas-red);
+            border-radius: 14px;
+            padding: 32px 26px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.35s ease;
+            position: relative;
+        }
+
+        .aas-card:hover {
+            background: var(--aas-surface-hover);
+            transform: translateY(-7px);
+            border-color: var(--aas-red);
+            box-shadow: 0 14px 32px rgba(255, 42, 42, 0.2);
+        }
+
+        .icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: rgba(255, 42, 42, 0.14);
+            border: 1px solid rgba(255, 42, 42, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--aas-red);
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .aas-card h4 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .aas-card p {
+            color: #cbd5e1;
+            font-size: 14.5px;
+            line-height: 1.65;
+            margin-bottom: 18px;
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .tech-tag {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            border-left: 2px solid var(--aas-red);
+        }
+
+        /* =========================================
+           AI MODEL HIGHLIGHT CARD
+        ========================================= */
+        .ai-model-card {
+            background: linear-gradient(160deg, #131722 0%, #1d0d11 100%);
+            border: 1px solid rgba(255, 42, 42, 0.35);
+            border-radius: 14px;
+            padding: 30px;
+            height: 100%;
+            transition: 0.3s ease;
+        }
+
+        .ai-model-card:hover {
+            box-shadow: 0 0 28px rgba(255, 42, 42, 0.3);
+            transform: translateY(-6px);
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: rgba(255, 42, 42, 0.2);
+            color: #ff6b6b;
+            border: 1px solid var(--aas-red);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           MARKETPLACE CARDS
+        ========================================= */
+        .mp-card {
+            background: var(--aas-surface);
+            border: 1px solid rgba(255, 42, 42, 0.3);
+            border-radius: 14px;
+            padding: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s ease;
+        }
+
+        .mp-card:hover {
+            border-color: var(--aas-red);
+            box-shadow: 0 12px 30px rgba(255, 42, 42, 0.25);
+        }
+
+        .mp-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0 24px;
+        }
+
+        .mp-list li {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-bottom: 9px;
+            padding-left: 22px;
+            position: relative;
+        }
+
+        .mp-list li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--aas-red);
+            position: absolute;
+            left: 0;
+            font-size: 12px;
+        }
+
+        /* =========================================
+           WORKFLOW & FAQ
+        ========================================= */
+        .step-card {
+            background: var(--aas-surface);
+            border: 1px solid var(--aas-border);
+            border-radius: 12px;
+            padding: 28px 22px;
+            height: 100%;
+            text-align: center;
+        }
+
+        .step-num {
+            width: 46px;
+            height: 46px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: rgba(255, 42, 42, 0.15);
+            border: 1px solid var(--aas-red);
+            color: var(--aas-red);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .faq-box {
+            background: var(--aas-surface);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 3px solid var(--aas-red);
+            border-radius: 8px;
+            margin-bottom: 14px;
+            padding: 18px 22px;
+            cursor: pointer;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .faq-answer {
+            color: var(--aas-muted);
+            font-size: 14.5px;
+            margin-top: 12px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-box.active .faq-answer {
+            display: block;
+        }
+
+        /* =========================================
+           CTA & FOOTER
+        ========================================= */
+        .aas-cta {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, #1b0a0e 0%, #0b0e17 100%);
+            border-top: 2px solid var(--aas-red);
+            border-bottom: 2px solid var(--aas-red);
+            padding: 70px 0;
+        }
+
+        .aas-footer {
+            position: relative;
+            z-index: 2;
+            background: #05070b;
+            padding: 65px 0 30px;
+            color: var(--aas-muted);
+            font-size: 14px;
+        }
+
+        .aas-footer h5 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        .aas-footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .aas-footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .aas-footer ul li a {
+            color: var(--aas-muted);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .aas-footer ul li a:hover {
+            color: var(--aas-red);
+        }
+
+        @media (max-width: 991px) {
+            .aas-nav-links {
+                display: none;
+            }
+            .aas-nav-links.show-mobile {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #0b0e17;
+                padding: 20px;
+                border-bottom: 2px solid var(--aas-red);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Moving Red Scanline -->
+    <div class="red-scanline"></div>
+
+    <!-- Header -->
+    <header class="aas-header">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a href="index.html" class="aas-brand">
+                <div class="aas-brand-icon">A</div>
+                <span>AAS<strong>Cloud</strong></span>
+            </a>
+
+            <ul class="aas-nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="#ai-models">AI Models</a></li>
+                <li><a href="#banking-finance">Banking & Finance</a></li>
+                <li><a href="#marketplace">Marketplace</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="contact.html" class="aas-btn-red">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+                <button class="btn text-white d-lg-none" id="mobileMenuBtn" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars fa-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Pure CSS + SVG Graphics, Zero Missing Images) -->
+    <section class="aas-hero">
+        <div class="container">
+            <div class="aas-pill"><i class="fa-solid fa-bolt"></i> Next-Gen Cloud, AI & FinTech Engineering</div>
+            <h1>Multi-Cloud DevOps, <span>Enterprise AI Models</span> & Banking Solutions</h1>
+            <p>We architect high-availability AWS, Azure, and Google Cloud ecosystems, deploy custom GenAI & financial risk models, and deliver ready-to-launch Marketplace products.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#cloud-services" class="aas-btn-red">Explore Services <i class="fa-solid fa-layer-group"></i></a>
+                <a href="#ai-models" class="btn btn-outline-light px-4 py-2 fw-semibold" style="border-radius:8px;">View AI Models</a>
+            </div>
+
+            <div class="hero-quick-stats">
+                <div class="stat-box">
+                    <h3>99.99%</h3>
+                    <span>Cloud Uptime SLA</span>
+                </div>
+                <div class="stat-box">
+                    <h3>3+ Clouds</h3>
+                    <span>AWS, Azure & GCP</span>
+                </div>
+                <div class="stat-box">
+                    <h3>40%</h3>
+                    <span>Avg. FinOps Cost Saved</span>
+                </div>
+                <div class="stat-box">
+                    <h3>24/7</h3>
+                    <span>SRE & Security Ops</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Background Wrapper with Red Lines -->
+    <div class="red-matrix-bg">
+
+        <!-- SECTION 1: AWS, AZURE & GOOGLE CLOUD SERVICES -->
+        <section class="aas-section" id="cloud-services">
+            <div class="container">
+                <div class="section-heading">
+                    <div class="aas-pill">Hyperscale Cloud Architecture</div>
+                    <h2>AWS, Azure & <span>Google Cloud Services</span></h2>
+                    <p>End-to-end cloud engineering, Kubernetes orchestration, DevSecOps automation, and zero-downtime migrations across all major cloud providers.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-brands fa-aws"></i></div>
+                                <h4>Amazon Web Services (AWS)</h4>
+                                <p>Production-grade AWS EKS Kubernetes clusters, EC2 auto-scaling, RDS Multi-AZ databases, Lambda serverless APIs, and AWS Control Tower landing zones.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">AWS EKS</span>
+                                <span class="tech-tag">Lambda</span>
+                                <span class="tech-tag">CloudFormation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-brands fa-microsoft"></i></div>
+                                <h4>Microsoft Azure Cloud</h4>
+                                <p>Enterprise Azure Kubernetes Service (AKS), Azure Entra ID security, hybrid cloud connectivity, Azure DevOps pipelines, and SQL managed instances.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">Azure AKS</span>
+                                <span class="tech-tag">Entra ID</span>
+                                <span class="tech-tag">Bicep / ARM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-brands fa-google"></i></div>
+                                <h4>Google Cloud Platform (GCP)</h4>
+                                <p>Cloud-native GKE clusters, BigQuery enterprise data warehousing, Cloud Run microservices, and ultra-low-latency global load balancing.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">Google GKE</span>
+                                <span class="tech-tag">BigQuery</span>
+                                <span class="tech-tag">Cloud Run</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-solid fa-code-branch"></i></div>
+                                <h4>DevOps & CI/CD Automation</h4>
+                                <p>Automated infrastructure provisioning with Terraform and Ansible alongside GitOps deployment pipelines using ArgoCD, GitHub Actions, and Docker.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">Terraform</span>
+                                <span class="tech-tag">ArgoCD</span>
+                                <span class="tech-tag">Docker & Helm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+                                <h4>Zero-Downtime Cloud Migration</h4>
+                                <p>Seamless migration of legacy on-premise servers, databases, and monolithic applications into modern containerized cloud architectures.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">DB Replication</span>
+                                <span class="tech-tag">Disaster Recovery</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div>
+                                <h4>FinOps & 24/7 Managed SRE</h4>
+                                <p>Continuous Prometheus/Grafana observability, incident response, and automated cloud cost optimization to reduce monthly cloud spend by up to 40%.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">Cost Optimization</span>
+                                <span class="tech-tag">24/7 Monitoring</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="red-divider"></div>
+
+        <!-- SECTION 2: ENTERPRISE AI MODELS & GEN-AI SOLUTIONS -->
+        <section class="aas-section" id="ai-models">
+            <div class="container">
+                <div class="section-heading">
+                    <div class="aas-pill"><i class="fa-solid fa-brain"></i> Artificial Intelligence & MLOps</div>
+                    <h2>Enterprise <span>AI Models & GenAI</span> Systems</h2>
+                    <p>Deploy private, secure, and domain-tuned AI models on AWS Bedrock, Azure OpenAI, and Google Vertex AI with complete data privacy.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="ai-model-card">
+                            <span class="ai-badge">AAS-FinLLM v2.5</span>
+                            <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
+                            <h4 class="text-white fw-bold mb-2">Banking & Financial RAG AI Agent</h4>
+                            <p class="text-light opacity-75">Private Retrieval-Augmented Generation (RAG) model trained to analyze balance sheets, RBI/SEC compliance docs, loan underwriting, and customer queries with zero data leakage.</p>
+                            <div class="tag-group mt-3">
+                                <span class="tech-tag">Vector DB</span>
+                                <span class="tech-tag">Private VPC</span>
+                                <span class="tech-tag">Zero Data Retention</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="ai-model-card">
+                            <span class="ai-badge">AAS-ShieldAI</span>
+                            <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h4 class="text-white fw-bold mb-2">Real-Time Fraud & Risk Scoring Model</h4>
+                            <p class="text-light opacity-75">Sub-50ms machine learning inference engine built for UPI/card payment gateways and NBFCs to detect anomalous transactions and credit default risks in real time.</p>
+                            <div class="tag-group mt-3">
+                                <span class="tech-tag">AWS SageMaker</span>
+                                <span class="tech-tag">Vertex AI</span>
+                                <span class="tech-tag">&lt;50ms Latency</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="ai-model-card">
+                            <span class="ai-badge">AAS-OpsCopilot</span>
+                            <div class="icon-box"><i class="fa-solid fa-microchip"></i></div>
+                            <h4 class="text-white fw-bold mb-2">Autonomous DevOps & AIOps Model</h4>
+                            <p class="text-light opacity-75">AI-driven log anomaly detection, automated root-cause analysis, and self-healing Kubernetes scaling powered by custom fine-tuned open-source LLMs.</p>
+                            <div class="tag-group mt-3">
+                                <span class="tech-tag">Azure OpenAI</span>
+                                <span class="tech-tag">Auto-Remediation</span>
+                                <span class="tech-tag">LLMOps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="red-divider"></div>
+
+        <!-- SECTION 3: BANKING & FINANCE SERVICES -->
+        <section class="aas-section" id="banking-finance">
+            <div class="container">
+                <div class="section-heading">
+                    <div class="aas-pill">BFSI & FinTech Infrastructure</div>
+                    <h2>Banking & <span>Financial Services</span></h2>
+                    <p>Mission-critical cloud architecture, regulatory compliance, and intelligent wealth & risk platforms built for banks, NBFCs, and FinTech innovators.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-solid fa-building-columns"></i></div>
+                                <h4>Core Banking & Payment Cloud</h4>
+                                <p>High-throughput, fault-tolerant infrastructure for digital banking apps, UPI switches, neo-banks, and real-time settlement engines.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">Active-Active Multi-Region</span>
+                                <span class="tech-tag">High TPS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-solid fa-file-shield"></i></div>
+                                <h4>PCI-DSS, SOC2 & RBI Compliance</h4>
+                                <p>End-to-end encryption (KMS/HSM), zero-trust network segmentation, WAF security, and continuous compliance auditing for financial institutions.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">PCI-DSS 4.0</span>
+                                <span class="tech-tag">ISO 27001</span>
+                                <span class="tech-tag">Data Localization</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="aas-card">
+                            <div>
+                                <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                                <h4>Wealth, Tax & Risk Management</h4>
+                                <p>Quantitative portfolio analytics, automated tax & treasury advisory platforms, and enterprise risk modeling for investment firms.</p>
+                            </div>
+                            <div class="tag-group">
+                                <span class="tech-tag">WealthTech</span>
+                                <span class="tech-tag">Risk Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="red-divider"></div>
+
+        <!-- SECTION 4: MARKETPLACE PRODUCTS -->
+        <section class="aas-section" id="marketplace">
+            <div class="container">
+                <div class="section-heading">
+                    <div class="aas-pill">AASCloud Marketplace</div>
+                    <h2>Ready-to-Deploy <span>Marketplace Products</span></h2>
+                    <p>Launch enterprise infrastructure in minutes instead of months with our pre-hardened Terraform blueprints, Kubernetes stacks, and FinOps tools.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="mp-card">
+                            <div>
+                                <span class="ai-badge">AWS & Azure</span>
+                                <h4 class="text-white fw-bold fs-5">Secure EKS / AKS Landing Zone</h4>
+                                <p class="text-secondary small">Production-ready Kubernetes cluster with built-in ingress, SSL, and observability.</p>
+                                <ul class="mp-list">
+                                    <li>1-Click Terraform Deployment</li>
+                                    <li>CIS Security Hardened</li>
+                                    <li>Prometheus + Grafana Built-in</li>
+                                </ul>
+                            </div>
+                            <a href="contact.html" class="aas-btn-red justify-content-center w-100">Deploy Now</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="mp-card">
+                            <div>
+                                <span class="ai-badge">BFSI Compliance</span>
+                                <h4 class="text-white fw-bold fs-5">PCI-DSS Compliance Guard</h4>
+                                <p class="text-secondary small">Automated security posture scanner and audit report generator for banking workloads.</p>
+                                <ul class="mp-list">
+                                    <li>Real-Time Drift Detection</li>
+                                    <li>Automated Audit Evidence</li>
+                                    <li>Multi-Cloud Support</li>
+                                </ul>
+                            </div>
+                            <a href="contact.html" class="aas-btn-red justify-content-center w-100">Request Demo</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="mp-card">
+                            <div>
+                                <span class="ai-badge">FinOps Suite</span>
+                                <h4 class="text-white fw-bold fs-5">AAS Cloud Cost Optimizer</h4>
+                                <p class="text-secondary small">AI-powered billing analyzer that identifies idle resources and optimizes Reserved Instances.</p>
+                                <ul class="mp-list">
+                                    <li>Cut Cloud Bills up to 40%</li>
+                                    <li>Slack & Email Spend Alerts</li>
+                                    <li>AWS, Azure & GCP Unified</li>
+                                </ul>
+                            </div>
+                            <a href="contact.html" class="aas-btn-red justify-content-center w-100">Start Free Trial</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="mp-card">
+                            <div>
+                                <span class="ai-badge">DevSecOps</span>
+                                <h4 class="text-white fw-bold fs-5">Zero-Trust CI/CD Pipeline Kit</h4>
+                                <p class="text-secondary small">Complete DevSecOps pipeline with container image scanning and secret management.</p>
+                                <ul class="mp-list">
+                                    <li>Trivy & SonarQube Gates</li>
+                                    <li>HashiCorp Vault Integration</li>
+                                    <li>GitHub & GitLab Ready</li>
+                                </ul>
+                            </div>
+                            <a href="contact.html" class="aas-btn-red justify-content-center w-100">Get Package</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="red-divider"></div>
+
+        <!-- SECTION 5: HOW WE WORK -->
+        <section class="aas-section">
+            <div class="container">
+                <div class="section-heading">
+                    <div class="aas-pill">Execution Blueprint</div>
+                    <h2>How We <span>Deliver Excellence</span></h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="step-card">
+                            <div class="step-num">01</div>
+                            <h5 class="text-white fw-bold">Architecture & AI Audit</h5>
+                            <p class="text-secondary small mb-0">Free 30-minute deep dive into your cloud infrastructure, AI goals, and compliance needs.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="step-card">
+                            <div class="step-num">02</div>
+                            <h5 class="text-white fw-bold">Security & Cost Blueprint</h5>
+                            <p class="text-secondary small mb-0">We design a Well-Architected roadmap tailored for maximum speed, security, and ROI.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="step-card">
+                            <div class="step-num">03</div>
+                            <h5 class="text-white fw-bold">Automated Deployment</h5>
+                            <p class="text-secondary small mb-0">Zero-downtime rollout using Infrastructure-as-Code, CI/CD, and private AI endpoints.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="step-card">
+                            <div class="step-num">04</div>
+                            <h5 class="text-white fw-bold">24/7 Managed SRE</h5>
+                            <p class="text-secondary small mb-0">Continuous monitoring, FinOps savings, and model optimization as you scale.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: FAQ -->
+        <section class="aas-section pt-0">
+            <div class="container">
+                <div class="row g-5 align-items-start">
+                    <div class="col-lg-5">
+                        <div class="aas-pill">Support & Clarity</div>
+                        <h2 class="text-white fw-bold mb-3">Frequently Asked <span style="color:var(--aas-red);">Questions</span></h2>
+                        <p class="text-secondary mb-4">Have questions about migrating to AWS/Azure/GCP, deploying private AI models, or banking compliance? Our solution architects are ready to help.</p>
+                        <a href="contact.html" class="aas-btn-red">Talk to an Architect <i class="fa-solid fa-headset"></i></a>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="faq-box active" onclick="this.classList.toggle('active')">
+                            <div class="faq-question">
+                                <span>Can you deploy private AI models without exposing our company data?</span>
+                                <i class="fa-solid fa-chevron-down text-danger"></i>
+                            </div>
+                            <div class="faq-answer">Yes. We deploy isolated RAG pipelines and fine-tuned models inside your own AWS VPC, Azure VNet, or GCP project so your proprietary data never leaves your environment or trains public models.</div>
+                        </div>
+
+                        <div class="faq-box" onclick="this.classList.toggle('active')">
+                            <div class="faq-question">
+                                <span>Do you support multi-cloud environments across AWS, Azure, and Google Cloud?</span>
+                                <i class="fa-solid fa-chevron-down text-danger"></i>
+                            </div>
+                            <div class="faq-answer">Absolutely. Using Terraform and Kubernetes, we build unified multi-cloud and hybrid architectures that give you flexibility and high availability across hyperscalers.</div>
+                        </div>
+
+                        <div class="faq-box" onclick="this.classList.toggle('active')">
+                            <div class="faq-question">
+                                <span>Are your Banking & FinTech solutions compliant with PCI-DSS and RBI norms?</span>
+                                <i class="fa-solid fa-chevron-down text-danger"></i>
+                            </div>
+                            <div class="faq-answer">Yes. Every financial architecture includes strict IAM policies, KMS/HSM encryption, WAF protection, audit logging, and regional data residency controls.</div>
+                        </div>
+
+                        <div class="faq-box" onclick="this.classList.toggle('active')">
+                            <div class="faq-question">
+                                <span>How fast can we deploy AASCloud Marketplace products?</span>
+                                <i class="fa-solid fa-chevron-down text-danger"></i>
+                            </div>
+                            <div class="faq-answer">Most Marketplace blueprints—including our Secure Kubernetes Landing Zone and Cost Optimizer—can be deployed into your cloud account within 24 to 48 hours.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- CTA Banner -->
+    <section class="aas-cta">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <h2 class="text-white fw-bold mb-2">Ready to Transform Your <span style="color:var(--aas-red);">Cloud, AI & FinTech Stack?</span></h2>
+                    <p class="text-secondary mb-0">Schedule a free 30-minute consultation with our certified AWS, Azure, GCP, and AI Solution Architects.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="contact.html" class="aas-btn-red px-4 py-3">Book Free Consultation <i class="fa-solid fa-calendar-check"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="aas-footer">
+        <div class="container">
+            <div class="row g-4 pb-4 border-bottom border-secondary border-opacity-25">
+                <div class="col-lg-4">
+                    <a href="index.html" class="aas-brand mb-3">
+                        <div class="aas-brand-icon">A</div>
+                        <span>AAS<strong>Cloud</strong></span>
+                    </a>
+                    <p>Enterprise Multi-Cloud DevOps, Custom AI Models, Banking IT Infrastructure, and Marketplace Solutions.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-light"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-github fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="post.html">Insights</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h5>Core Solutions</h5>
+                    <ul>
+                        <li><a href="#cloud-services">AWS, Azure & GCP</a></li>
+                        <li><a href="#ai-models">Enterprise AI Models</a></li>
+                        <li><a href="#banking-finance">Banking & FinTech IT</a></li>
+                        <li><a href="#marketplace">Marketplace Products</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Get In Touch</h5>
+                    <ul>
+                        <li><i class="fa-solid fa-location-dot text-danger me-2"></i> 52 Harbor View, San Francisco, CA</li>
+                        <li><i class="fa-solid fa-phone text-danger me-2"></i> +91- 5567354147</li>
+                        <li><i class="fa-solid fa-envelope text-danger me-2"></i> as@aascloud.info</li>
+                        <li><i class="fa-solid fa-clock text-danger me-2"></i> Mon–Fri, 9am – 6pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between pt-4 small">
+                <span>&copy; 2026 AASCloud. All Rights Reserved.</span>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-secondary text-decoration-none">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            document.getElementById('navMenu').classList.toggle('show-mobile');
+        });
+    </script>
+</body>
+</html>
